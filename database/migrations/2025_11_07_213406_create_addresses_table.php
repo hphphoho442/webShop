@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('label', 100);
-            $table->string('recipient', 150)->nullable();
-            $table->string('phone', 20)->nullable();
-            $table->string('line',255)->nullable();
+            $table->string('recipient', 150);
+            $table->string('phone', 20);
+            $table->string('line',255);
             $table->string('ward', 100);
             $table->string('district', 100);
             $table->string('province', 100);
