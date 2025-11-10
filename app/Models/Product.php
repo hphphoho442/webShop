@@ -36,6 +36,9 @@ class Product extends Model
     public function orderItems(){
         return $this->hasMany(OrderItem::class);
     }
+    public function cartItems(){
+        return $this->belongsTo(CartItem::class);
+    }
 
     // Scopes tiện dụng
     public function scopeActive($query){
