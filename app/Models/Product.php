@@ -58,4 +58,16 @@ class Product extends Model
                     ->orWhere('barcode', 'like', "%{$q}%")
                 );
     }
+    public function likes(){
+        return $this->hasMany(ProductLike::class);
+    }
+    public function likeByUsers(){
+        return $this->belongsToMany(User::class, 'ProductLikes')
+                    ->withPivot('liked_at');
+    }
+    public function comments()
+{
+    return $this->hasMany(ProductComment::class);
+}
+
 }

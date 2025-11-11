@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamp('liked_at')
                 ->useCurrent();
             $table->unique(['user_id', 'product_id'], 'uq_like_user_product');
-            $table->index(['product_id', 'like_at']);
+            $table->index(['product_id', 'liked_at']);
             });
         }
 
