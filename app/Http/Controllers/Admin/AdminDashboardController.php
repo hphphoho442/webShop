@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 
 class AdminDashboardController extends Controller
 {
+    public function Index(){
+        return view('admin.index');
+    }
     public function DashboardManager(){
         return view('admin.dashboardManager');
     }

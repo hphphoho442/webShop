@@ -43,7 +43,7 @@
                         </li>
                         @if(Auth::user()->role === "admin")
                             <li class="nav-item">
-                                <a href="{{route('admin.Dashboard')}}" class="btn text-white bg-transparent {{ request()->is('login') ? 'active' : '' }}"> 
+                                <a href="{{route('admin.index')}}" class="btn text-white bg-transparent {{ request()->is('login') ? 'active' : '' }}"> 
                                     Quản lý
                                 </a>
                             </li>
