@@ -25,8 +25,13 @@
                     <td>{{$accountList->email}}</td>
                     <td>{{$accountList->role}}</td>
                     <td>
-                        <a class="btn btn-sm btn-primary" >Sửa</a>
-                        <button class="btn btn-sm btn-danger">Xóa</button>
+                        <a class="btn btn-sm btn-primary" 
+                        href="{{route('admin.Account.Update', 
+                            ['id'=>$accountList->id])}}">Sửa</a>
+                        <a class="btn btn-sm btn-danger"
+                            href="{{route('admin.Account.Delete', ['id'=>$accountList->id])}}">
+                            Xóa
+                        </a>
                     </td>
                 </tr>
             @endforeach

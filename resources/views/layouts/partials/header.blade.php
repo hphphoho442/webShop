@@ -60,7 +60,15 @@
                     @endif
 
                 </li>
-
+                @auth
+                    <li class="nav-item ">
+                        <form action="{{route('logout')}}" method="POST" id="logout">
+                            @csrf
+                            <button class="btn text-white bg-transparent">Đăng xuất</button>
+                        </form>
+                    </li>
+                @endauth
+                        
             </ul>
         </div>
 
