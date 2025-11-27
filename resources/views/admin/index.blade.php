@@ -5,9 +5,24 @@
         <div class="container">
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="">Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link" href="">Sản phẩm</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        Products
+                    </a>
+                    <ul class="dropdown-menu ">
+                        <li><a class="dropdown-item" href="{{route('admin.categories.index')}}">Qly danh mục</a></li>
+                        <li><a class="dropdown-item" href="#">Qly sản phẩm</a></li>
+                    </ul>
+                </li>
+
+
                 <li class="nav-item"><a class="nav-link" href="">Đơn hàng</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{route('admin.Account')}}">Người dùng</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" 
+                    href="{{route('admin.Account.index')}}">
+                    Người dùng
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>

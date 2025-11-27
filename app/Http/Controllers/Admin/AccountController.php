@@ -47,14 +47,14 @@ class AccountController extends Controller
             'role'=>$data['role'],
         ]);
         return redirect()
-            ->route('admin.Account')
+            ->route('admin.Account.index')
             ->with('success', 'Cập nhật thông tin thành công');
     }
     public function destroy($id){
         $user=User::findOrFail($id);
         $user->delete();
          return redirect()
-            ->route('admin.Account')
+            ->route('admin.Account.index')
             ->with('success', 'Cập nhật thông tin thành công');
     }
 }

@@ -95,7 +95,7 @@
 
     {{-- Submit --}}
     <div class="d-flex justify-content-end gap-2">
-        <a href="{{ route('admin.Account') }}" class="btn btn-secondary">
+        <a href="{{ route('admin.Account.index') }}" class="btn btn-secondary">
             Hủy
         </a>
         <button type="submit" class="btn btn-primary">
