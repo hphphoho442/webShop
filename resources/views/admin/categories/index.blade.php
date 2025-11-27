@@ -10,7 +10,7 @@
         <thead class="table-dark">
             <tr>
                 <th>#</th>
-                <th>Tên</th>
+                <th>Loại</th>
                 <th>Loại cha</th>
                 <th>Đường dẫn</th>
                 <th>Miêu tả</th>
@@ -21,8 +21,8 @@
             @foreach($data as $data)
                 <tr>
                     <td>{{$data->id}}</td>
-                    <td>{{$data->parent_id}}</td>
                     <td>{{$data->name}}</td>
+                    <td>{{$data->parent->name ?? '-'}}</td>
                     <td>{{$data->slug}}</td>
                     <td>{{$data->discription}}</td>
                     <td>

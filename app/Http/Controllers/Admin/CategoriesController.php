@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class CategoriesController extends Controller
 {
     public function index(){
-        $data=Category::all();
+        $data=Category::with('parent')->get();
         return view('admin.categories.index',
         compact('data'));
     }
