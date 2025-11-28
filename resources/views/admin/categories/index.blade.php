@@ -1,8 +1,9 @@
 @extends('admin.index')
 @section('adminContent')
     <div class="nav">
-        <a class="btn btn-sm btn-info mb-2" href="{{route('admin.Account.Create')}}">
-            + Thêm người dùng
+        <a class="btn btn-sm btn-info mb-2" 
+        href="{{route('admin.categories.create')}}">
+            + Thêm thể loại
         </a>
     </div>
     <div class="table-responsive">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\admin\Category\CreateRequest;
 
 class CategoriesController extends Controller
 {
@@ -17,5 +18,21 @@ class CategoriesController extends Controller
         $data=Category::findOrFail($id);
         return view('admin.categories.updateCategory',
                 compact('data'));
+    }
+    public function create(){
+        $categories=Category::with('parent')->get();
+        return view('admin.categories.createCategory', compact('categories'));
+    }
+    public function CreatePOST(CreateRequest $request){
+        $data=$request->validated();
+        $category= Category::create([
+            'name'=>$data['name'],
+            'parent_id'=>$data['parent_id'],
+            'description'=>$data['description'],
+            'slug'=>$data['slug'],
+        ]);
+        return redirect()->route('admin.categories.index')
+                 ->with('success', 'Category created successfully!');
+
     }
 }

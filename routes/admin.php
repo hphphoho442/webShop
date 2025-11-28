@@ -16,8 +16,8 @@ Route::middleware(['auth', 'role:admin'])->
         name('Account.')->
         controller(AccountController::class)->
         group(function(){
-            Route::get('/', 'AccountManager')->name('index');
-            Route::get('/create', 'Create')->name('Create');
+            Route::GET('/', 'AccountManager')->name('index');
+            Route::GET('/create', 'Create')->name('Create');
             Route::POST('/Store', 'Store')->name('Store');
             Route::GET('/update/{id}', 'Update')->name('Update');
             Route::PUT('/update/PUT/{id}', 'UpdatePUT')->name('UpdatePUT');
@@ -28,6 +28,8 @@ Route::middleware(['auth', 'role:admin'])->
         name('categories.')->
         group(function(){
             Route::GET('/', 'index')->name('index');
+            Route::GET('/create', 'create')->name('create');
             Route::GET('/updateCategory/{id}', 'update')->name('update');
+            Route::POST('/createPOST', 'CreatePOST')->name('CreatePOST');
         });
 });

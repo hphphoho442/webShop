@@ -1,14 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\admin\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class CreateRequest extends FormRequest
 {
-    public function authorize()
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
     {
-        return true; // cho phép tất cả user gửi request này
+        return auth()->check() && auth()->user()->role === 'admin';
     }
 
     public function rules()
@@ -18,7 +21,7 @@ class CategoryRequest extends FormRequest
             'slug'        => 'required|unique:categories,slug|max:191',
             'description' => 'nullable',
             'parent_id'   => 'nullable|exists:categories,id',
-            'is_active'   => 'boolean',
+            // 'is_active'   => 'boolean',
         ];
     }
 
@@ -32,4 +35,3 @@ class CategoryRequest extends FormRequest
         ];
     }
 }
-
