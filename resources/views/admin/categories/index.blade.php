@@ -30,10 +30,11 @@
                         <a class="btn btn-sm btn-primary" 
                         href="{{route('admin.categories.update', 
                             ['id'=>$data->id])}}">Sửa</a>
-                        {{-- <a class="btn btn-sm btn-danger"
-                            href="{{route('admin.Account.Delete', ['id'=>$accountList->id])}}">
+                        <a class="btn btn-sm btn-danger"
+                            {{-- href="{{route('admin.Account.Delete', ['id'=>$accountList->id])}}"> --}}
+                            >
                             Xóa
-                        </a> --}}
+                        </a>
                     </td>
                 </tr>
             @endforeach

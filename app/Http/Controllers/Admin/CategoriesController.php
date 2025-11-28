@@ -15,9 +15,10 @@ class CategoriesController extends Controller
         compact('data'));
     }
     public function update($id){
-        $data=Category::findOrFail($id);
+        $data=Category::with('parent')->findOrFail($id);
+         $categories=Category::with('parent')->get();
         return view('admin.categories.updateCategory',
-                compact('data'));
+                compact('data', 'categories'));
     }
     public function create(){
         $categories=Category::with('parent')->get();
