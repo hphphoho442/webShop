@@ -31,5 +31,7 @@ Route::middleware(['auth', 'role:admin'])->
             Route::GET('/create', 'create')->name('create');
             Route::GET('/updateCategory/{id}', 'update')->name('update');
             Route::POST('/createPOST', 'CreatePOST')->name('CreatePOST');
+            Route::PUT('/UpdatePUT/{id}', 'UpdatePUT')->name('UpdatePUT');
+            Route::GET('/{id}/delete', 'Destroy')->name('Delete');
         });
 });

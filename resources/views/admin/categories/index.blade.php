@@ -31,8 +31,7 @@
                         href="{{route('admin.categories.update', 
                             ['id'=>$data->id])}}">Sửa</a>
                         <a class="btn btn-sm btn-danger"
-                            {{-- href="{{route('admin.Account.Delete', ['id'=>$accountList->id])}}"> --}}
-                            >
+                            href="{{route('admin.categories.Delete', ['id'=>$data->id])}}">
                             Xóa
                         </a>
                     </td>

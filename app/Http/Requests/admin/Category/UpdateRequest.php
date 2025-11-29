@@ -4,14 +4,14 @@ namespace App\Http\Requests\admin\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class update extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->check() && auth()->user()->role === 'admin';
     }
 
     /**
@@ -22,7 +22,10 @@ class update extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'parent_id'   => 'nullable|exists:categories,id',
+            'name'        => 'nullable|max:150',
+            'slug'        => 'nullable|unique:categories,slug|max:191',
+            'description' => 'nullable',
         ];
     }
 }

@@ -1,11 +1,10 @@
 @extends('admin.index')
 @section('adminContent')
-@extends('admin.index')
-@section('adminContent')
-    <form action="{{ route('admin.categories.CreatePOST') }}" 
+    <form action="{{ route('admin.categories.UpdatePUT', $data->id) }}" 
     method="POST" 
     class="card p-4">
     @csrf
+    @method('PUT')
 
     <h3 class="mb-4">Sửa thế loại</h3>
 
@@ -27,7 +26,7 @@
 
 
         <select name="parent_id" class="form-select mb-3">
-            <option value="">{{ $data->parent ? $data->parent->name : 'Không có cha' }}</option>
+            <option value="$data->parent">{{ $data->parent ? $data->parent->name : 'Không có cha' }}</option>
             @php renderOptions($categories); @endphp
         </select>
 
@@ -40,8 +39,8 @@
             id="name"
             name="name"
             class="form-control @error('name') is-invalid @enderror"
-            value="{{ $data->name }}"
-            placeholder="tên thể loại"
+            value=""
+            placeholder="{{ $data->name }}"
         >
         @error('name')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -56,8 +55,8 @@
             id="slug"
             name="slug"
             class="form-control @error('slug') is-invalid @enderror"
-            value="{{ $data->slug }}"
-            placeholder="Nhập miêu tả..."
+            value=""
+            placeholder="{{ $data->slug }}"
         >
         @error('slug')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -70,8 +69,8 @@
             id="description"
             name="description"
             class="form-control @error('description') is-invalid @enderror"
-            value="{{ $data->description }}"
-            placeholder="Nhập miêu tả..."
+            value=""
+            placeholder="{{ $data->description }}"
         >
         @error('description')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -80,7 +79,7 @@
 
     {{-- Submit --}}
     <div class="d-flex justify-content-end gap-2">
-        <a href="{{ route('admin.Account.index') }}" class="btn btn-secondary">
+        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">
             Hủy
         </a>
         <button type="submit" class="btn btn-primary">
@@ -91,4 +90,3 @@
 
 @endsection
     
-@endsection
