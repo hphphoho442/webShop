@@ -11,9 +11,9 @@ use App\Http\Requests\admin\Account\Store;
 class AccountController extends Controller
 {   
     public function AccountManager(){
-        $accountList = User::all();
+        $data = User::paginate();
         return view('admin.Account.accountManager', 
-            compact('accountList'));
+            compact('data'));
     }
     public function Create(){
         return view('admin.Account.createAccount');

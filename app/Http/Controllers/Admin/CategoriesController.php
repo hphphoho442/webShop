@@ -11,7 +11,7 @@ use App\Http\Requests\admin\Category\UpdateRequest;
 class CategoriesController extends Controller
 {
     public function index(){
-        $data=Category::with('parent')->get();
+        $data=Category::with('parent')->paginate(3);
         return view('admin.categories.index',
         compact('data'));
     }

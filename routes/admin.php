@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashBoard;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\admin\AccountController;
 use App\Http\Controllers\admin\CategoriesController;
+use App\Http\Controllers\admin\ProductController;
 
 Route::middleware(['auth', 'role:admin'])->
     controller(AdminController::class)->
@@ -33,5 +34,11 @@ Route::middleware(['auth', 'role:admin'])->
             Route::POST('/createPOST', 'CreatePOST')->name('CreatePOST');
             Route::PUT('/UpdatePUT/{id}', 'UpdatePUT')->name('UpdatePUT');
             Route::GET('/{id}/delete', 'Destroy')->name('Delete');
+        });
+        Route::prefix('product')->
+        controller(ProductController::class)->
+        name('product.')->
+        group(function(){
+            Route::GET('/', 'index')->name('index');
         });
 });

@@ -11,7 +11,7 @@
                     </a>
                     <ul class="dropdown-menu ">
                         <li><a class="dropdown-item" href="{{route('admin.categories.index')}}">Qly danh mục</a></li>
-                        <li><a class="dropdown-item" href="#">Qly sản phẩm</a></li>
+                        <li><a class="dropdown-item" href="{{ route('admin.product.index') }}">Qly sản phẩm</a></li>
                     </ul>
                 </li>
 

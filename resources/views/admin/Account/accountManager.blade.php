@@ -18,7 +18,7 @@
         </thead>
 
         <tbody>
-            @foreach($accountList as $accountList)
+            @foreach($data as $accountList)
                 <tr>
                     <td>{{$accountList->id}}</td>
                     <td>{{$accountList->name}}</td>
@@ -38,5 +38,7 @@
         </tbody>
     </table>
 </div>
-
+<div class="mt-3 d-flex justify-content-end">
+    {{ $data->links() }}
+</div>
 @endsection
