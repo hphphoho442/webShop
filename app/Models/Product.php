@@ -19,7 +19,7 @@ class Product extends Model
         'cost_price'    => 'decimal:2',
         'price'         => 'decimal:2',
         'tax_rate'      => 'decimal:2',
-        'stock_quantity'=> 'interger',
+        'stock_quantity'=> 'int',
         'is_active'     => 'boolean',
     ];
 

@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashBoard;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\admin\AccountController;
-use App\Http\Controllers\admin\CategoriesController;
 use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\admin\SupplierController;
+use App\Http\Controllers\admin\CategoriesController;
 
 Route::middleware(['auth', 'role:admin'])->
     controller(AdminController::class)->
@@ -38,6 +39,12 @@ Route::middleware(['auth', 'role:admin'])->
         Route::prefix('product')->
         controller(ProductController::class)->
         name('product.')->
+        group(function(){
+            Route::GET('/', 'index')->name('index');
+        });
+        Route::prefix('supplier')->
+        controller(SupplierController::class)->
+        name('supplier.')->
         group(function(){
             Route::GET('/', 'index')->name('index');
         });

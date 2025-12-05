@@ -19,10 +19,10 @@
         <tbody>
             @foreach($data as $dataload)
                 <tr>
-                    <td>{{$dataload->barcode}}</td>
                     <td>{{$dataload->name}}</td>
-                    <td>{{$dataload->price}}</td>
-                    <td>{{$dataload->stock_quantity}}</td>
+                    <td>{{$dataload->phone}}</td>
+                    <td>{{$dataload->email}}</td>
+                    <td>{{$dataload->address}}</td>
                     <td>
                         <a class="btn btn-sm btn-primary" 
                         href="{{route('admin.categories.update', 
