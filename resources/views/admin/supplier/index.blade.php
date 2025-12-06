@@ -1,18 +1,19 @@
 @extends('admin.index')
 @section('adminContent')
 <a class="btn btn-sm btn-info mb-2" 
-        href="{{route('admin.categories.create')}}">
-            + Thêm thể loại
+        href="{{route('admin.supplier.create')}}">
+            + Thêm NCC
         </a>
     </div>
     <div class="table-responsive">
     <table class="table table-striped table-hover table-bordered align-middle">
         <thead class="table-dark">
             <tr>
-                <th>Code</th>
-                <th>Tên </th>
-                <th>Giá</th>
-                <th>Tồn kho</th>
+                <th>Tên NCC</th>
+                <th>SĐT</th>
+                <th>Email</th>
+                <th>Địa chỉ</th>
+                <th>Chức năng</th>
             </tr>
         </thead>
 

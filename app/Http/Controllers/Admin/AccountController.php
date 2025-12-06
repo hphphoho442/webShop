@@ -11,7 +11,7 @@ use App\Http\Requests\admin\Account\Store;
 class AccountController extends Controller
 {   
     public function AccountManager(){
-        $data = User::paginate();
+        $data = User::paginate(20);
         return view('admin.Account.accountManager', 
             compact('data'));
     }
