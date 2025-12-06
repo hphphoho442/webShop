@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\admin\supplier;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class create extends FormRequest
+class updateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +23,15 @@ class create extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'contact'=>('nullable|string|max:150'),
+            'name'=>('nullable|string|max:150'),
+            'phone'=>[('nullable|string|max:150'),
+                        Rule::unique('supplier', 'phone')->
+                        ignore($this->id)],
+            'email'=>[('nullable|email|max:150'),
+                    Rule::unique('supplier', 'email')->
+                    ignore($this->id)],
+            'address'=>('nullable|string|max:150'),
         ];
     }
 }

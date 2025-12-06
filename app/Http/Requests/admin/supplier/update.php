@@ -4,14 +4,14 @@ namespace App\Http\Requests\admin\supplier;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class createRequest extends FormRequest
+class update extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->check() && auth()->User()->role === 'admin';
+        return auth()->check()&&auth()->User()->role==='admin';
     }
 
     /**
@@ -22,12 +22,7 @@ class createRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'contact'=>('required|string|max:150'),
-            'name'=>('required|string|max:150'),
-            'phone'=>('required|string|max:150|unique:suppliers,phone'),
-            'email'=>('required|email|max:150|unique:suppliers,email'),
-            'address'=>('required|string|max:150'),
-
+            'contact'
         ];
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\supplier\createRequest;
+use App\Http\Requests\admin\supplier\updateRequest;
 
 class SupplierController extends Controller
 {
@@ -23,10 +24,21 @@ class SupplierController extends Controller
             'Contact_Name'=>$data['contact'],
             'name'=>$data['name'],
             'phone'=>$data['phone'],
-            'email'=>$data['Email'],
+            'email'=>$data['email'],
             'address'=>$data['address'],
         ]);
         return redirect()->route('admin.supplier.index')
             ->with('success','Thêm NCC thành công');
+    }
+    public function update($id){
+        $data=Supplier::findOrFail($id);
+        return view('admin.supplier.update',
+                compact('data'));
+    }
+    public function updatePUT(updateRequest $request, $id){
+        $data = $request->validated();
+        $put=Supplier::update(
+            
+        );
     }
 }

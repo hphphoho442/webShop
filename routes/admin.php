@@ -48,6 +48,8 @@ Route::middleware(['auth', 'role:admin'])->
         group(function(){
             Route::GET('/', 'index')->name('index');
             Route::GET('/create', 'create')->name('create');
-            Route::POST('/createPOST', 'CreatePOST')->name('createPOST');
+            Route::POST('/createPOST', 'createPOST')->name('createPOST');
+            Route::GET('/update/{id}', 'update')->name('update');
+            Route::GET('/{id}/delete', '/delete')->name('delete');
         });
 });

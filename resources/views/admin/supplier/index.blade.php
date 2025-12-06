@@ -26,10 +26,10 @@
                     <td>{{$dataload->address}}</td>
                     <td>
                         <a class="btn btn-sm btn-primary" 
-                        href="{{route('admin.categories.update', 
+                        href="{{route('admin.supplier.update', 
                             ['id'=>$dataload->id])}}">Sửa</a>
                         <a class="btn btn-sm btn-danger"
-                            href="{{route('admin.categories.Delete',
+                            href="{{route('admin.supplier.delete',
                              ['id'=>$dataload->id])}}">
                             Xóa
                         </a>
