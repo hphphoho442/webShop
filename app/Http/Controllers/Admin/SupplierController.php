@@ -35,10 +35,48 @@ class SupplierController extends Controller
         return view('admin.supplier.update',
                 compact('data'));
     }
-    public function updatePUT(updateRequest $request, $id){
+    public function updatePUT(UpdateRequest $request, $id)
+    {
+        $supplier = Supplier::findOrFail($id);
+
+        // sau đó copy logic giống bên trên
         $data = $request->validated();
-        $put=Supplier::update(
-            
-        );
+        
+        
+        
+        $filtered = array_filter($data, fn($v) => $v !== null && $v !== '');
+        
+        // \Log::debug('validated', $data);
+        // \Log::debug('filtered', $filtered);
+        // \Log::debug('keys_filtered', array_keys($filtered));
+        // dd($data, $filtered, !($request->input('contact')===null));
+        $supplier->fill($filtered);
+
+        if (!($request->input('contact')===null)) {
+            $supplier->contact_name = $request->input('contact');
+        }
+        if (!($request->input('name')===null)) {
+            $supplier->name = $request->input('name');
+        }
+        if (!($request->input('phone')===null)) {
+            $supplier->phone = $request->input('phone');
+        }
+        if (!($request->input('email')===null)) {
+            $supplier->email = $request->input('email');
+        }
+        if (!($request->input('address')===null)) {
+            $supplier->address = $request->input('address');
+        }
+
+        $supplier->save();
+
+        return redirect()->route('admin.supplier.index')->with('success', 'Cập nhật thành công');
+    }
+    public function Delete($id){
+        $item=Supplier::findOrFail($id);
+        $data=$item->delete();
+        return redirect()->
+            route('admin.supplier.index')->
+            with('success','Xóa thành Công');
     }
 }

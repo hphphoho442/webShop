@@ -1,37 +1,61 @@
 <?php
 
-namespace App\Http\Requests\admin\supplier;
+namespace App\Http\Requests\Admin\Supplier;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class updateRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return auth()->check() && auth()->User()->role === 'admin';
+        // Để test tạm cho true. Khi deploy, đổi lại kiểm quyền:
+        return auth()->check() && auth()->user()->role === 'admin';
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
+        // Lấy id từ route: hỗ trợ cả route model binding (category model) hoặc {id}
+        $routeSupplier = $this->route('supplier'); // nếu bạn dùng model binding
+        $routeId = $this->route('id');             // nếu bạn dùng {id}
+
+        $ignoreId = null;
+        if ($routeSupplier) {
+            $ignoreId = is_object($routeSupplier) && method_exists($routeSupplier, 'getKey')
+                ? $routeSupplier->getKey()
+                : $routeSupplier;
+        } elseif ($routeId) {
+            $ignoreId = $routeId;
+        }
+
         return [
-            'contact'=>('nullable|string|max:150'),
-            'name'=>('nullable|string|max:150'),
-            'phone'=>[('nullable|string|max:150'),
-                        Rule::unique('supplier', 'phone')->
-                        ignore($this->id)],
-            'email'=>[('nullable|email|max:150'),
-                    Rule::unique('supplier', 'email')->
-                    ignore($this->id)],
-            'address'=>('nullable|string|max:150'),
+            'contact' => ['nullable', 'string', 'max:150'],
+            'name'    => ['nullable', 'string', 'max:150'],
+
+            'phone' => array_filter([
+                'nullable',
+                'string',
+                'max:150',
+                $ignoreId ? Rule::unique('suppliers', 'phone')->ignore($ignoreId) : Rule::unique('suppliers', 'phone'),
+            ]),
+
+            'email' => array_filter([
+                'nullable',
+                'email',
+                'max:150',
+                $ignoreId ? Rule::unique('suppliers', 'email')->ignore($ignoreId) : Rule::unique('suppliers', 'email'),
+            ]),
+
+            'address' => ['nullable', 'string', 'max:150'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'phone.unique' => 'Số điện thoại đã tồn tại.',
+            'email.unique' => 'Email đã tồn tại.',
+            'name.max'     => 'Tên không quá 150 ký tự.',
         ];
     }
 }

@@ -1,6 +1,6 @@
 @extends('admin.index')
 @section('adminContent')
-    <form action="{{ route('admin.categories.UpdatePUT', $data->id) }}" 
+    <form action="{{ route('admin.supplier.updatePUT', $data->id) }}" 
     method="POST" 
     class="card p-4">
     @csrf
