@@ -20,7 +20,7 @@
             @foreach($data as $dataload)
                 <tr>
                     <td>{{$dataload->barcode}}</td>
-                    <td>{{$dataload->name}}</td>
+                    <td><a href="">{{$dataload->name}}</a></td>
                     <td>{{$dataload->price}}</td>
                     <td>{{$dataload->stock_quantity}}</td>
                     <td>

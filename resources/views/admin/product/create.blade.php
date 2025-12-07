@@ -1,34 +1,19 @@
 @extends('admin.index')
-
+@section('js', '<script src="resources\js\admin\a.js"></script>')
 @section('adminContent')
     <form action="{{ route('admin.categories.CreatePOST') }}" 
     method="POST" 
     class="card p-4">
     @csrf
 
-    <h3 class="mb-4">Thêm tài thể loại</h3>
+    {{-- <h3 class="mb-4">Thêm tài thể loại</h3> --}}
 
     {{-- perentID --}}
-    <div class="mb-3">
-        <label for="parentID" class="form-label">Thể loại cha</label>
-        @php
-        function renderOptions($categories, $parentId = null, $prefix = '') {
-            $children = $categories->where('parent_id', $parentId);
-            foreach($children as $category) {
-                echo "<option value='{$category->id}'>{$prefix}{$category->name}</option>";
-                // chỉ gọi đệ quy nếu có con
-                if ($categories->where('parent_id', $category->id)->count() > 0) {
-                    renderOptions($categories, $category->id, $prefix . '- ');
-                }
-            }
-        }
-        @endphp
-
-
-        <select name="parent_id" class="form-select mb-3">
-            <option value="">-- Không có cha --</option>
-            @php renderOptions($categories); @endphp
-        </select>
+    <div style="position:relative; max-width:600px;">
+    <input id="supplier-search" name="supplier_name" autocomplete="off" placeholder="Nhập tên / phone / email nhà cung cấp">
+    <input type="hidden" id="supplier_id" name="supplier_id">
+    <div id="supplier-suggestions" class="suggestions" style="position:absolute; left:0; right:0; z-index:1000; background:#fff; border:1px solid #ddd; display:none;"></div>
+    </div>
 
 
     {{-- Name --}}

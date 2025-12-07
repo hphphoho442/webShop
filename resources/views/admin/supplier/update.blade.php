@@ -92,7 +92,7 @@
             Hủy
         </a>
         <button type="submit" class="btn btn-primary">
-            Lưu thể loại
+            Lưu NCC
         </button>
     </div>
 </form>
