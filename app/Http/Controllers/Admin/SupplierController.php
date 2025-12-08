@@ -79,4 +79,5 @@ class SupplierController extends Controller
             route('admin.supplier.index')->
             with('success','Xóa thành Công');
     }
+    
 }

@@ -41,6 +41,8 @@ Route::middleware(['auth', 'role:admin'])->
         name('product.')->
         group(function(){
             Route::GET('/', 'index')->name('index');
+            Route::GET('/create', 'create')->name('create');
+            Route::GET('/search', 'search')->name('search');
         });
         Route::prefix('supplier')->
         controller(SupplierController::class)->

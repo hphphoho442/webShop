@@ -1,36 +1,37 @@
 @extends('admin.index')
-@section('js', '<script src="resources\js\admin\a.js"></script>')
+@section('js')
+     @vite('resources/js/admin/a.js')
+@endsection
+@section('css')
+     @vite('resources/css/admin/a.css')
+@endsection
 @section('adminContent')
     <form action="{{ route('admin.categories.CreatePOST') }}" 
     method="POST" 
     class="card p-4">
     @csrf
-
-    {{-- <h3 class="mb-4">Thêm tài thể loại</h3> --}}
-
-    {{-- perentID --}}
-    <div style="position:relative; max-width:600px;">
-    <input id="supplier-search" name="supplier_name" autocomplete="off" placeholder="Nhập tên / phone / email nhà cung cấp">
-    <input type="hidden" id="supplier_id" name="supplier_id">
-    <div id="supplier-suggestions" class="suggestions" style="position:absolute; left:0; right:0; z-index:1000; background:#fff; border:1px solid #ddd; display:none;"></div>
-    </div>
-
-
     {{-- Name --}}
-    <div class="mb-3">
-        <label for="name" class="form-label">Tên thể loại</label>
-        <input
-            type="text"
-            id="name"
-            name="name"
-            class="form-control @error('name') is-invalid @enderror"
-            value="{{ old('name') }}"
-            placeholder="tên thể loại"
-        >
-        @error('name')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-    </div>
+    <div class="mb-3" style="position:relative;">
+  <label for="supplier" class="form-label">Nhà cung cấp</label>
+
+  <input
+    type="text"
+    id="supplier"
+    name="supplier_text"
+    class="form-control"
+    value="{{ old('supplier_text') }}"
+    placeholder="Nhập tên / SDT / email NCC"
+    autocomplete="off"
+    aria-autocomplete="list"
+    aria-controls="supplier_results"
+    aria-expanded="false"
+  >
+
+  <input type="hidden" id="supplier_id" name="supplier_id" value="{{ old('supplier_id') }}">
+
+  <div id="supplier_results" role="listbox" aria-label="Gợi ý nhà cung cấp" style="display:none;"></div>
+</div>
+
 
     {{-- Slug --}}
     <div class="mb-3">

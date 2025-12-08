@@ -1,7 +1,7 @@
 @extends('admin.index')
 @section('adminContent')
 <a class="btn btn-sm btn-info mb-2" 
-        href="{{route('admin.categories.create')}}">
+        href="{{route('admin.product.create')}}">
             + Thêm thể loại
         </a>
     </div>
