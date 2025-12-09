@@ -70,4 +70,35 @@ public function UpdatePUT(UpdateRequest $request, $id)
             ->route('admin.categories.index')
             ->with('success', 'Xóa thông tin thành công');
     }
+public function search(Request $request)
+{
+    $q = trim($request->query('q', ''));
+
+    if ($q === '') {
+        return response()->json([]);
+    }
+
+    $categories = Category::with('parent:id,name')
+        ->where(function ($query) use ($q) {
+            $query->where('name', 'like', "%{$q}%")
+                  ->orWhere('slug', 'like', "%{$q}%");
+        })
+        ->orWhereHas('parent', function ($q2) use ($q) {
+            $q2->where('name', 'like', "%{$q}%");
+        })
+        ->get(['id', 'name', 'slug', 'parent_id']);
+
+    $out = $categories->map(function ($c) {
+        return [
+            'id' => $c->id,
+            'name' => $c->name,
+            'slug' => $c->slug,
+            'parent_id' => $c->parent_id,
+            'parent_name' => $c->parent->name ?? null,
+        ];
+    });
+
+    return response()->json($out);
+}
+
 }

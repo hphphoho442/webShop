@@ -79,5 +79,20 @@ class SupplierController extends Controller
             route('admin.supplier.index')->
             with('success','Xóa thành Công');
     }
-    
+    public function search(Request $request){
+        $q = trim($request->query('q'));
+
+        if ($q === '') {
+            return response()->json([]);
+        }
+
+        $suppliers = Supplier::where('name', 'like', "%{$q}%")
+            ->orWhere('phone', 'like', "%{$q}%")
+            ->orWhere('email', 'like', "%{$q}%")
+            ->limit(10)
+            ->get(['id', 'name', 'phone', 'email']);
+
+        return response()->json($suppliers);
+    }
+
 }

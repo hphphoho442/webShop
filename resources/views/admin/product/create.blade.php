@@ -1,6 +1,7 @@
 @extends('admin.index')
 @section('js')
-     @vite('resources/js/admin/a.js')
+     @vite('resources/js/admin/seachSupplier.js')
+     @vite('resources/js/admin/seachCategory.js')
 @endsection
 @section('css')
      @vite('resources/css/admin/a.css')
@@ -11,26 +12,47 @@
     class="card p-4">
     @csrf
     {{-- Name --}}
-    <div class="mb-3" style="position:relative;">
-  <label for="supplier" class="form-label">Nhà cung cấp</label>
+    <div id="d_supplier" class="mb-3" style="position:relative;">
+    <label for="supplier" class="form-label">Nhà cung cấp</label>
 
-  <input
-    type="text"
-    id="supplier"
-    name="supplier_text"
-    class="form-control"
-    value="{{ old('supplier_text') }}"
-    placeholder="Nhập tên / SDT / email NCC"
-    autocomplete="off"
-    aria-autocomplete="list"
-    aria-controls="supplier_results"
-    aria-expanded="false"
-  >
+    <input
+        type="text"
+        id="supplier"
+        name="supplier_text"
+        class="form-control"
+        value="{{ old('supplier_text') }}"
+        placeholder="Nhập tên / SDT / email NCC"
+        autocomplete="off"
+        aria-autocomplete="list"
+        aria-controls="supplier_results"
+        aria-expanded="false"
+    >
 
-  <input type="hidden" id="supplier_id" name="supplier_id" value="{{ old('supplier_id') }}">
+    <input type="hidden" id="supplier_id" name="supplier_id" value="{{ old('supplier_id') }}">
 
-  <div id="supplier_results" role="listbox" aria-label="Gợi ý nhà cung cấp" style="display:none;"></div>
-</div>
+    <div id="supplier_results" role="listbox" aria-label="Gợi ý nhà cung cấp" style="display:none;"></div>
+    </div>
+    {{-- kiểu loại --}}
+    <div id="d_category" class="mb-3" style="position:relative;">
+    <label for="category" class="form-label">Nhà cung cấp</label>
+
+    <input
+        type="text"
+        id="category"
+        name="category_text"
+        class="form-control"
+        value="{{ old('category_text') }}"
+        placeholder="Nhập tên / id kiểu loại"
+        autocomplete="off"
+        aria-autocomplete="list"
+        aria-controls="category_results"
+        aria-expanded="false"
+    >
+
+    <input type="hidden" id="category_id" name="category_id" value="{{ old('category_id') }}">
+
+    <div id="category_results" role="listbox" aria-label="Gợi ý kiểu loại" style="display:none;"></div>
+    </div>
 
 
     {{-- Slug --}}

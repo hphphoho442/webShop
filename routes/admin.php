@@ -35,6 +35,8 @@ Route::middleware(['auth', 'role:admin'])->
             Route::POST('/createPOST', 'CreatePOST')->name('CreatePOST');
             Route::PUT('/UpdatePUT/{id}', 'UpdatePUT')->name('UpdatePUT');
             Route::GET('/{id}/delete', 'Destroy')->name('Delete');
+            Route::GET('/search', 'search')->name('search');
+
         });
         Route::prefix('product')->
         controller(ProductController::class)->
@@ -42,7 +44,6 @@ Route::middleware(['auth', 'role:admin'])->
         group(function(){
             Route::GET('/', 'index')->name('index');
             Route::GET('/create', 'create')->name('create');
-            Route::GET('/search', 'search')->name('search');
         });
         Route::prefix('supplier')->
         controller(SupplierController::class)->
@@ -54,5 +55,6 @@ Route::middleware(['auth', 'role:admin'])->
             Route::GET('/update/{id}', 'update')->name('update');
             Route::PUT('/updatePUT/{id}', 'updatePUT')->name('updatePUT');
             Route::GET('/{id}/delete', 'Delete')->name('delete');
+            Route::GET('/search', 'search')->name('search');
         });
 });
