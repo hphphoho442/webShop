@@ -95,13 +95,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function choose(idx) {
-    if (idx < 0 || idx >= items.length) return;
-    const sel = items[idx];
-    input.value = sel.name ?? '';
-    if (hidden) hidden.value = sel.id ?? '';
-    render([], '');
-  }
+function choose(idx) {
+  if (idx < 0 || idx >= items.length) return;
+  const sel = items[idx];
+
+  // gộp hiển thị
+  const parts = [sel.name, sel.phone, sel.email].filter(Boolean);
+  input.value = parts.join(' — ');
+
+  if (hidden) hidden.value = sel.id ?? '';
+
+  render([], '');
+}
+
 
   function updateFocus() {
     const nodes = results.querySelectorAll('.supplier-item');

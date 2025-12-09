@@ -7,11 +7,60 @@
      @vite('resources/css/admin/a.css')
 @endsection
 @section('adminContent')
-    <form action="{{ route('admin.categories.CreatePOST') }}" 
+    <form action="{{ route('admin.product.CreatePOST') }}" 
     method="POST" 
     class="card p-4">
     @csrf
+    {{-- barcode --}}
+    <div class="mb-3">
+        <label for="barcode " class="form-label">Mã vạch</label>
+        <input
+            type="text"
+            id="barcode "
+            name="barcode "
+            class="form-control @error('barcode ') is-invalid @enderror"
+            value="{{ old('barcode ') }}"
+            placeholder="Barcode"
+        >
+        @error('barcode ')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+
     {{-- Name --}}
+    <div class="mb-3">
+        <label for="name" class="form-label">Tên sản phẩm</label>
+        <input
+            type="text"
+            id="name"
+            name="name"
+            class="form-control @error('name') is-invalid @enderror"
+            value="{{ old('name') }}"
+            placeholder="Tên sản phẩm"
+        >
+        @error('name')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    {{-- Cost price --}}
+    <div class="mb-3">
+        <label for="cost_price" class="form-label">Giá sản phẩm</label>
+        <input
+            type="text"
+            id="cost_price"
+            name="cost_price"
+            class="form-control @error('cost_price') is-invalid @enderror"
+            value="{{ old('cost_price') }}"
+            placeholder="Giá sản phẩm"
+        >
+        @error('cost_price')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+
+
+
+    {{-- Supplier --}}
     <div id="d_supplier" class="mb-3" style="position:relative;">
     <label for="supplier" class="form-label">Nhà cung cấp</label>
 
@@ -70,7 +119,8 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-        <div class="mb-3">
+    {{-- miêu tả --}}
+    <div class="mb-3">
         <label for="description" class="form-label">miêu tả</label>
         <input
             type="text"

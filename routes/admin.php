@@ -44,6 +44,7 @@ Route::middleware(['auth', 'role:admin'])->
         group(function(){
             Route::GET('/', 'index')->name('index');
             Route::GET('/create', 'create')->name('create');
+            Route::POST('/CreatePOST', 'CreatePOST')->name('CreatePOST');
         });
         Route::prefix('supplier')->
         controller(SupplierController::class)->
