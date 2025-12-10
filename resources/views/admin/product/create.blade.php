@@ -13,16 +13,16 @@
     @csrf
     {{-- barcode --}}
     <div class="mb-3">
-        <label for="barcode " class="form-label">Mã vạch</label>
+        <label for="barcode" class="form-label">Mã vạch</label>
         <input
             type="text"
-            id="barcode "
-            name="barcode "
-            class="form-control @error('barcode ') is-invalid @enderror"
-            value="{{ old('barcode ') }}"
+            id="barcode"
+            name="barcode"
+            class="form-control @error('barcode') is-invalid @enderror"
+            value="{{ old('barcode') }}"
             placeholder="Barcode"
         >
-        @error('barcode ')
+        @error('barcode')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
@@ -44,16 +44,16 @@
     </div>
     {{-- Cost price --}}
     <div class="mb-3">
-        <label for="cost_price" class="form-label">Giá sản phẩm</label>
+        <label for="price" class="form-label">Giá sản phẩm</label>
         <input
             type="text"
-            id="cost_price"
-            name="cost_price"
-            class="form-control @error('cost_price') is-invalid @enderror"
-            value="{{ old('cost_price') }}"
+            id="price"
+            name="price"
+            class="form-control @error('price') is-invalid @enderror"
+            value="{{ old('price') }}"
             placeholder="Giá sản phẩm"
         >
-        @error('cost_price')
+        @error('price')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
@@ -97,8 +97,8 @@
         aria-controls="category_results"
         aria-expanded="false"
     >
-
     <input type="hidden" id="category_id" name="category_id" value="{{ old('category_id') }}">
+
 
     <div id="category_results" role="listbox" aria-label="Gợi ý kiểu loại" style="display:none;"></div>
     </div>
@@ -137,7 +137,7 @@
 
     {{-- Submit --}}
     <div class="d-flex justify-content-end gap-2">
-        <a href="{{ route('admin.Account.index') }}" class="btn btn-secondary">
+        <a href="{{ route('admin.product.index') }}" class="btn btn-secondary">
             Hủy
         </a>
         <button type="submit" class="btn btn-primary">
