@@ -9,8 +9,16 @@
 @section('adminContent')
     <form action="{{ route('admin.product.CreatePOST') }}" 
     method="POST" 
+    enctype="multipart/form-data"
     class="card p-4">
     @csrf
+    {{-- Images --}}
+    <div class="mb-3">
+        <label for="images">Ảnh sản phẩm</label>
+        <input type="file" id="images" name="images[]" multiple accept="image/*" class="form-control" />
+        @error('images') <div class="text-danger">{{ $message }}</div> @enderror
+        @error('images.*') <div class="text-danger">{{ $message }}</div> @enderror
+  </div>
     {{-- barcode --}}
     <div class="mb-3">
         <label for="barcode" class="form-label">Mã vạch</label>

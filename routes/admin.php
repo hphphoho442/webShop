@@ -45,6 +45,10 @@ Route::middleware(['auth', 'role:admin'])->
             Route::GET('/', 'index')->name('index');
             Route::GET('/create', 'create')->name('create');
             Route::POST('/CreatePOST', 'CreatePOST')->name('CreatePOST');
+            Route::GET('/update', 'Update')->name('Update');
+            Route::GET('/Delete', 'Delete')->name('Delete');
+            Route::GET('/{id}/LoadImage', 'LoadImage')->name('LoadImage');
+
         });
         Route::prefix('supplier')->
         controller(SupplierController::class)->
@@ -59,3 +63,14 @@ Route::middleware(['auth', 'role:admin'])->
             Route::GET('/search', 'search')->name('search');
         });
 });
+
+Route::get('/debug-img/{id}', function($id){
+    $path = storage_path("app/public/products/{$id}/{$id}-0-20251211013449.jpg"); // thay tên file tương ứng
+    return response()->json([
+        'exists' => file_exists($path),
+        'realpath' => realpath($path),
+        'is_readable' => is_readable($path),
+        'storage_url' => asset('storage/products/'.$id.'/'.$id.'-0-20251211013449.jpg'),
+    ]);
+})->name('deb');
+

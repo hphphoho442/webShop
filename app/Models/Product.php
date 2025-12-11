@@ -30,9 +30,12 @@ class Product extends Model
         return $this->belongsTo(Supplier::class);
     }
 
-    public function image(){
-        return $this->hasMany(ProductImage::class);
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class, 'product_id', 'id')->
+        orderByDesc('is_primary');
     }
+
     public function orderItems(){
         return $this->hasMany(OrderItem::class);
     }
