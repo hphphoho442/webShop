@@ -21,7 +21,8 @@ class UpdateRequest extends FormRequest
 
         $ignoreId = null;
         if ($routeSupplier) {
-            $ignoreId = is_object($routeSupplier) && method_exists($routeSupplier, 'getKey')
+            $ignoreId = is_object($routeSupplier) && 
+            method_exists($routeSupplier, 'getKey')
                 ? $routeSupplier->getKey()
                 : $routeSupplier;
         } elseif ($routeId) {
@@ -36,7 +37,10 @@ class UpdateRequest extends FormRequest
                 'nullable',
                 'string',
                 'max:150',
-                $ignoreId ? Rule::unique('suppliers', 'phone')->ignore($ignoreId) : Rule::unique('suppliers', 'phone'),
+                $ignoreId ? 
+                Rule::unique('suppliers', 'phone')->
+                ignore($ignoreId) 
+                : Rule::unique('suppliers', 'phone'),
             ]),
 
             'email' => array_filter([

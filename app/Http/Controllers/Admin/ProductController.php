@@ -4,10 +4,12 @@ namespace App\Http\Controllers\admin;
 
 use App\Models\Product;
 use App\Models\Supplier;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\product\CreateRequest;
+use App\Http\Requests\admin\product\UpdateRequired;
 
 class ProductController extends Controller
 {
@@ -65,7 +67,7 @@ class ProductController extends Controller
 
 
             // insert nhiều bản ghi 1 lần (hấp dẫn và nhanh)
-            \DB::table('product_images')->insert($rows);
+            DB::table('product_images')->insert($rows);
             // hoặc nếu muốn dùng Eloquent:
             // $product->images()->createMany(array_map(fn($r)=>Arr::except($r,['product_id']), $rows));
         }
@@ -78,26 +80,113 @@ class ProductController extends Controller
             DB::rollBack();
             // nếu đã lưu file nhưng rollback DB, cân nhắc xóa file đã upload hoặc dùng try/catch riêng
             // log lỗi
-            \Log::error('Create product failed: '.$e->getMessage());
+            Log::error('Create product failed: '.$e->getMessage());
             return back()->withInput()->withErrors(['general' => 'Có lỗi xảy ra, thử lại.']);
         }
     }
 
     public function Update($id){
-        return view('admin.product.update');
+        $product = Product::with(['category','supplier','images'])->findOrFail($id);
+        return view('admin.product.update',compact('product'));
     }
+    public function updatePUT(updateRequired $request,$id) {
+        $product = Product::findOrFail($id);
+        \DB::beginTransaction();
+
+        try {
+
+            /**
+             * =========================
+             * 1. Lấy data đã validate
+             * =========================
+             */
+            $data = collect($request->validated())
+                ->filter(function ($value) {
+                    // ❗ bỏ field rỗng hoặc null
+                    return !($value === null || $value === '');
+                })
+                ->toArray();
+            /**
+             * =========================
+             * 2. Xử lý slug tự sinh (nếu cần)
+             * =========================
+             */
+            if (!empty($data['name']) && empty($data['slug'])) {
+                $data['slug'] = \Illuminate\Support\Str::slug($data['name']);
+            }
+
+            /**
+             * =========================
+             * 3. Không cho images vào bảng products
+             * =========================
+             */
+            unset($data['images']);
+
+            /**
+             * =========================
+             * 4. Update product
+             * =========================
+             */
+            if (!empty($data)) {
+                $product->update($data);
+            }
+
+            /**
+             * =========================
+             * 5. Upload images (nếu có)
+             * =========================
+             */
+            if ($request->hasFile('images')) {
+
+                foreach ($request->file('images') as $file) {
+                    $ext = $file->getClientOriginalExtension();
+
+                    // Tạo timestamp
+                    $time = now()->format('YmdHis'); // ví dụ: 20251210_081030
+
+                    // Tạo tên file: productID-index-time.ext
+                    $filename = "{$product->id}-0-{$time}.{$ext}";
+
+                    // Lưu file vào thư mục public/products/{id}/
+                    $path = $file->storeAs("products/{$product->id}", $filename, 'public');
+
+                    ProductImage::create([
+                        'product_id' => $product->id,
+                        'url'       => $path,
+                        'is_primary' => $product->images()->count() === 0,
+                    ]);
+                }
+            }
+
+            DB::commit();
+
+            return redirect()
+                ->route('admin.product.LoadImage', $product->id)
+                ->with('success', 'Cập nhật sản phẩm thành công');
+
+        } catch (Throwable $e) {
+            dd($e);
+            DB::rollBack();
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'error' => 'Có lỗi xảy ra khi cập nhật sản phẩm'
+                ]);
+        }
+    }
+
     public function Delete($id){
         return view('admin.product');
     }
-public function LoadImage($id)
-{
-    // lấy product và các ảnh liên quan
-    $product = Product::with(['images'])->findOrFail($id);
+    public function LoadImage($id)
+    {
+        // lấy product và các ảnh liên quan
+        $product = Product::with(['category','supplier','images'])->findOrFail($id);
 
-    // debug nếu cần:
-    // dd($product->images->toArray());
+        // debug nếu cần:
+        // dd($product->images->toArray());
 
-    return view('admin.product.showImages', compact('product'));
-}
+        return view('admin.product.showDetail', compact('product'));
+    }
 
 }

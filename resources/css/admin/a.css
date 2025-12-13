@@ -47,3 +47,17 @@
 .category-item.focused { background: #f0f8ff; }
 #category_results { border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); }
 
+.showImage{
+  max-width: 250px; 
+  border: 1px solid #eee;
+}
+
+.showImageFail{
+  width:250px;
+  height:250px;
+  background:#f2f2f2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid #ccc;
+}

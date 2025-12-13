@@ -22,7 +22,7 @@
                     <td>{{$dataload->barcode}}</td>
                     <td><a href="{{route('admin.product.LoadImage',
                          $dataload->id)}}">{{$dataload->name}}</a></td>
-                    <td>{{$dataload->price}}</td>
+                    <td>{{number_format($dataload->price, 0, ',', '.')}}</td>
                     <td>{{$dataload->stock_quantity}}</td>
                     <td>
                         <a class="btn btn-sm btn-primary" 
