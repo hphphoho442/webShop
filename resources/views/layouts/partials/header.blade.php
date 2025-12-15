@@ -22,8 +22,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('products*') ? 'active' : '' }}" href="/products">
-                        Sản phẩm
+                    <a class="nav-link {{ request()->is('shop*') ? 'active' : '' }}" href="{{route('shop.index')}}">
+                        Sản phẩm 
                     </a>
                 </li>
 

@@ -47,7 +47,7 @@ Route::middleware(['auth', 'role:admin'])->
             Route::POST('/CreatePOST', 'CreatePOST')->name('CreatePOST');
             Route::GET('/update/{id}', 'Update')->name('Update');
             Route::PUT('/UpdatePUT/{id}', 'updatePUT')->name('UpdatePUT');
-            Route::GET('/Delete', 'Delete')->name('Delete');
+            Route::GET('/Delete/{id}', 'Delete')->name('Delete');
             Route::GET('/{id}/LoadImage', 'LoadImage')->name('LoadImage');
 
         });

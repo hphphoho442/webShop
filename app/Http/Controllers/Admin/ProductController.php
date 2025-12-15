@@ -176,7 +176,11 @@ class ProductController extends Controller
     }
 
     public function Delete($id){
-        return view('admin.product');
+        $item=Product::findOrFail($id);
+        $data=$item->delete();
+        return redirect()->
+        route('admin.product.index')->
+        with('success','Xóa sản phẩm thành công');
     }
     public function LoadImage($id)
     {
