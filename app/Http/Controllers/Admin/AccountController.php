@@ -28,7 +28,7 @@ class AccountController extends Controller
             'role'=>$data['role'],
         ]);
         return redirect()
-            ->route('admin.Account')
+            ->route('admin.Account.index')
             ->with('success', 'Tạo user mới thành công!');
     }
 
