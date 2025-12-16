@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\ShopController;
+use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Client\CheckoutController;
 
 
@@ -34,4 +36,24 @@ prefix('checkout')->
 name('checkout.')->
 group(function(){
     route::GET('/', 'index')->name('index');
+    route::POST('/order/store', 'index')->name('index');
+});
+
+Route::middleware(['auth'])->
+controller(AddressController::class)->
+prefix('address')->
+name('address.')->
+group(function(){
+    Route::GET('/', 'create')->name('create');
+    Route::POST('/store', 'store')->name('store');
+});
+
+Route::middleware(['auth'])->
+controller(OrderController::class)->
+prefix('order')->
+name('order.')->
+group(function(){
+    Route::GET('/', 'index')->name('index');
+    Route::GET('/show/{order}', 'show')->name('show');
+    Route::POST('/store', 'store')->name('store');
 });

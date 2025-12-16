@@ -33,6 +33,12 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('order') ? 'active' : '' }}" href="/order">
+                        Đơn hàng
+                    </a>
+                </li>
+
                 {{-- Nếu bạn có trang admin, thêm ở đây --}}
                 <li class="nav-item">
                     @if(Auth::check())
