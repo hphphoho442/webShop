@@ -17,6 +17,38 @@
                        class="form-control"
                        placeholder="🔍 Tìm sản phẩm...">
             </form>
+            {{-- FILTER PRICE --}}
+            <form method="GET" action="{{ route('shop.index') }}" class="mb-4">
+
+                {{-- giữ lại filter cũ --}}
+                <input type="hidden" name="q" value="{{ request('q') }}">
+                <input type="hidden" name="category" value="{{ request('category') }}">
+
+                <div class="mb-2 fw-bold">Khoảng giá</div>
+
+                <div class="row g-2">
+                    <div class="col-6">
+                        <input type="number"
+                            name="price_min"
+                            value="{{ request('price_min') }}"
+                            class="form-control"
+                            placeholder="Từ">
+                    </div>
+
+                    <div class="col-6">
+                        <input type="number"
+                            name="price_max"
+                            value="{{ request('price_max') }}"
+                            class="form-control"
+                            placeholder="Đến">
+                    </div>
+                </div>
+
+                <button class="btn btn-sm btn-primary w-100 mt-2">
+                    Lọc
+                </button>
+            </form>
+
 
             {{-- CATEGORY --}}
             <div class="card">
@@ -60,57 +92,56 @@
         </div>
 
         {{-- PRODUCTS --}}
-        <div class="col-md-9">
-            <div class="row g-4">
+<div class="col-md-9">
+    <div class="row g-4">
 
-                @forelse($products as $product)
-                    @php
-                        $primary = $product->images->where('is_primary',1)->first()
-                                 ?? $product->images->first();
-                    @endphp
+        @forelse($products as $product)
+            @php
+                $primary = $product->images->where('is_primary',1)->first()
+                         ?? $product->images->first();
+            @endphp
 
-                    <div class="col-md-4 col-sm-6">
-                        <div class="card h-100 shadow-sm">
+            <div class="col-md-4 col-sm-6">
+                <a href="{{ route('shop.show', $product->id) }}"
+                {{-- <a href="#" --}}
+                   class="text-decoration-none text-dark">
 
-                            {{-- <div style="height:180px;background:#f2f2f2;
-                                display:flex;align-items:center;justify-content:center;"> --}}
-                                <div class="product-thumb">
-                                @if($primary)
-                                    <img src="{{ Storage::url($primary->url) }}"
-                                         style=";">
-                                @else
-                                    <span class="text-muted">none</span>
-                                @endif
-                            </div>
+                    <div class="card h-100 shadow-sm product-card">
 
-                            <div class="card-body d-flex flex-column">
-                                <h6>{{ $product->name }}</h6>
-
-                                <div class="fw-bold text-danger mb-2">
-                                    {{ number_format($product->price,0,',','.') }} ₫
-                                </div>
-
-                                {{-- <a href="{{ route('shop.show', $product->id) }}" --}}
-                                <a href="#"
-                                   class="btn btn-outline-primary btn-sm mt-auto">
-                                    Xem chi tiết
-                                </a>
-                            </div>
-
+                        {{-- IMAGE --}}
+                        <div class="product-thumb">
+                            @if($primary)
+                                <img src="{{ Storage::url($primary->url) }}">
+                            @else
+                                <div class="no-image">none</div>
+                            @endif
                         </div>
-                    </div>
-                @empty
-                    <div class="col-12 text-muted text-center">
-                        Không tìm thấy sản phẩm
-                    </div>
-                @endforelse
 
-            </div>
+                        {{-- BODY --}}
+                        <div class="card-body">
+                            <h6 class="mb-1">{{ $product->name }}</h6>
 
-            <div class="mt-4">
-                {{ $products->links() }}
+                            <div class="fw-bold text-danger">
+                                {{ number_format($product->price,0,',','.') }} ₫
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
             </div>
-        </div>
+        @empty
+            <div class="col-12 text-center text-muted">
+                Không có sản phẩm
+            </div>
+        @endforelse
+
+    </div>
+
+    {{-- PAGINATION --}}
+    <div class="mt-4">
+        {{ $products->links() }}
+    </div>
+</div>
 
     </div>
 </div>

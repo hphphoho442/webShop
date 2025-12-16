@@ -35,7 +35,10 @@ class Product extends Model
         return $this->hasMany(ProductImage::class, 'product_id', 'id')->
         orderByDesc('is_primary');
     }
-
+        public function primaryImage()
+    {
+        return $this->hasOne(ProductImage::class)->where('is_primary', 1);
+    }
     public function orderItems(){
         return $this->hasMany(OrderItem::class);
     }
