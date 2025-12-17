@@ -56,4 +56,5 @@ group(function(){
     Route::GET('/', 'index')->name('index');
     Route::GET('/show/{order}', 'show')->name('show');
     Route::POST('/store', 'store')->name('store');
+    Route::POST('/cancel/{order}', 'cancel')->name('cancel');
 });

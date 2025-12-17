@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashBoard;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\admin\AccountController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\SupplierController;
@@ -14,6 +15,8 @@ Route::middleware(['auth', 'role:admin'])->
     prefix('admin')->
     group(function () {
         Route::get('/index',  [AdminController::class, 'Index'])->name('index');
+        Route::GET('/dashboard', 'Dashboard')->
+        name('dashboard');
         Route::prefix('accountManager')->
         name('Account.')->
         controller(AccountController::class)->
@@ -63,15 +66,27 @@ Route::middleware(['auth', 'role:admin'])->
             Route::GET('/{id}/delete', 'Delete')->name('delete');
             Route::GET('/search', 'search')->name('search');
         });
+        Route::prefix('order')->
+        controller(OrderController::class)->
+        name('order.')->
+        group(function(){
+            Route::GET('/orders', 'index')
+                ->name('index');
+            Route::GET('/orders/{order}', 'show')
+                ->name('show');
+            Route::POST('/orders/{order}/status', 'updateStatus')
+                ->name('updateStatus');
+        });
+
 });
 
-Route::get('/debug-img/{id}', function($id){
-    $path = storage_path("app/public/products/{$id}/{$id}-0-20251211013449.jpg"); // thay tên file tương ứng
-    return response()->json([
-        'exists' => file_exists($path),
-        'realpath' => realpath($path),
-        'is_readable' => is_readable($path),
-        'storage_url' => asset('storage/products/'.$id.'/'.$id.'-0-20251211013449.jpg'),
-    ]);
-})->name('deb');
+// Route::get('/debug-img/{id}', function($id){
+//     $path = storage_path("app/public/products/{$id}/{$id}-0-20251211013449.jpg"); // thay tên file tương ứng
+//     return response()->json([
+//         'exists' => file_exists($path),
+//         'realpath' => realpath($path),
+//         'is_readable' => is_readable($path),
+//         'storage_url' => asset('storage/products/'.$id.'/'.$id.'-0-20251211013449.jpg'),
+//     ]);
+// })->name('deb');
 

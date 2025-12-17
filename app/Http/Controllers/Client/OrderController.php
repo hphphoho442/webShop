@@ -91,7 +91,7 @@ class OrderController extends Controller
 
             // 8️⃣ Redirect sang trang xác nhận
             return redirect()
-                ->route('orders.show', $order->id)
+                ->route('order.show', compact('order'))
                 ->with('success', 'Đặt hàng thành công 🎉');
 
         } catch (\Throwable $e) {
@@ -114,4 +114,43 @@ class OrderController extends Controller
 
         return view('client.order.show', compact('order'));
     }
+    public function cancel(Order $order)
+{
+    // 1️⃣ Chỉ chủ đơn mới được hủy
+    if ($order->user_id !== Auth::id()) {
+        abort(403);
+    }
+
+    // 2️⃣ Chỉ hủy khi đang pending
+    if ($order->status !== 'pending') {
+        return back()->with('error', 'Không thể hủy đơn hàng này');
+    }
+
+    DB::beginTransaction();
+
+    try {
+        // 3️⃣ Update trạng thái đơn
+        $order->update([
+            'status' => 'cancelled'
+        ]);
+
+        // 4️⃣ Update trạng thái payment
+        if ($order->payment) {
+            $order->payment->update([
+                'status' => 'cancelled'
+            ]);
+        }
+
+        DB::commit();
+
+        return redirect()
+            ->route('orders.show', $order->id)
+            ->with('success', 'Đã hủy đơn hàng');
+
+    } catch (\Throwable $e) {
+        DB::rollBack();
+
+        return back()->with('error', 'Hủy đơn thất bại');
+    }
+}
 }

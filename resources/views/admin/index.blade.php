@@ -4,7 +4,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <div class="container">
             <ul class="navbar-nav mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{route('admin.dashboard')}}">Dashboard</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                         Products
@@ -17,7 +17,7 @@
                 </li>
 
 
-                <li class="nav-item"><a class="nav-link" href="">Đơn hàng</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{route('admin.order.index')}}">Đơn hàng</a></li>
                 <li class="nav-item">
                     <a class="nav-link" 
                     href="{{route('admin.Account.index')}}">

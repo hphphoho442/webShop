@@ -1,15 +1,36 @@
-@extends('layouts.main')
+@extends('admin.index')
 
 @section('title', 'Chi tiết đơn hàng')
 
-@section('content')
+@section('adminContent')
 <div class="container mt-4">
     <h3>🧾 Đơn hàng #{{ $order->id }}</h3>
 
     <p>
-        Trạng thái: <strong>{{ ucfirst($order->status) }}</strong><br>
-        Thanh toán: <strong>{{ $order->status }}</strong>
+        Khách hàng: <strong>{{ $order->user->name }}</strong><br>
+        Email: {{ $order->user->email }}
     </p>
+
+    <hr>
+
+    <form method="POST"
+          action="{{ route('admin.order.updateStatus', $order->id) }}">
+        @csrf
+
+        <label class="form-label">Trạng thái đơn hàng</label>
+        <select name="status" class="form-select w-25">
+            @foreach(['pending','processing','shipped','completed','cancelled'] as $status)
+                <option value="{{ $status }}"
+                    @selected($order->status === $status)>
+                    {{ ucfirst($status) }}
+                </option>
+            @endforeach
+        </select>
+
+        <button class="btn btn-primary mt-2">
+            Cập nhật trạng thái
+        </button>
+    </form>
 
     <hr>
 
@@ -46,27 +67,5 @@
             @endforeach
         </tbody>
     </table>
-
-    <div class="text-end">
-        <h4>Tổng tiền:
-            <strong>{{ number_format($order->total_amount) }} đ</strong>
-        </h4>
-    </div>
-
-    <a href="{{ route('order.index') }}" class="btn btn-secondary mt-3">
-        Quay lại danh sách
-    </a>
-    @if($order->status === 'pending')
-    <form method="POST"
-          action="{{ route('order.cancel', $order->id) }}"
-          onsubmit="return confirm('Bạn chắc chắn muốn hủy đơn hàng này?')"
-          class="mt-3">
-        @csrf
-        <button class="btn btn-danger">
-            ❌ Hủy đơn hàng
-        </button>
-    </form>
-@endif
-
 </div>
 @endsection
