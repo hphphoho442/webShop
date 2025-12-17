@@ -29,8 +29,17 @@
                     <td>{{ $order->created_at->format('d/m/Y') }}</td>
                     <td>{{ number_format($order->total_amount) }} đ</td>
                     <td>{{ strtoupper($order->payment->method ?? 'N/A') }}</td>
+                    @php
+                        $statusClasses = [
+                            'pending'    => 'bg-warning text-dark',
+                            'processing' => 'bg-info',
+                            'shipped'    => 'bg-primary',
+                            'completed'  => 'bg-success',
+                            'cancelled'  => 'bg-danger',
+                        ];
+                    @endphp
                     <td>
-                        <span class="badge bg-secondary">
+                        <span class="badge {{ $statusClasses[$order->status] ?? 'bg-secondary' }}">
                             {{ ucfirst($order->status) }}
                         </span>
                     </td>
