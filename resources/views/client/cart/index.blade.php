@@ -23,6 +23,7 @@
                     <th>Giá</th>
                     <th>Số lượng</th>
                     <th>Tạm tính</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -66,6 +67,17 @@
                         </td>
                         {{-- <td>{{ $item->quantity }}</td> --}}
                         {{-- <td>{{ number_format($subtotal) }} đ</td> --}}
+                        <td>
+                            <form action='{{ route('cart.destroy', $item->id) }}' 
+                            method="POST"
+                            onsubmit="return confirm('bạn muốn xóa sản phẩm')">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-outline-danger">
+                                    ❌
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

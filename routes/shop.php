@@ -30,6 +30,8 @@ group(function(){
     ->name('add');
     Route::POST('/{item}/update', 'update')
     ->name('update');
+    Route::DELETE('/destroy/{item}', 'destroy')
+    ->name('destroy');
 });
 
 Route::middleware(['auth'])->

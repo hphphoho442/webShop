@@ -102,5 +102,11 @@ class CartController extends Controller
             'total'    => $total
         ]);
     }
-
+    public function destroy(CartItem $item){
+        if($item->cart->user_id !== auth::id()){
+            abort(403);
+        }
+        $item->delete();
+        return back()->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng');
+    }
 }
