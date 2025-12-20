@@ -1,6 +1,10 @@
 @extends('layouts.main')
 
 @section('title', 'Giỏ hàng')
+@section('js')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @vite('resources/js/shop/cart/change_quantity_item.js')
+@endsection
 
 @section('content')
 <div class="container mt-4">
@@ -41,15 +45,34 @@
                         </td>
                         <td>{{ $product->name }}</td>
                         <td>{{ number_format($product->price) }} đ</td>
-                        <td>{{ $item->quantity }}</td>
-                        <td>{{ number_format($subtotal) }} đ</td>
+                        <td>
+                        <form class="d-flex gap-2"
+                            method="POST"
+                            action="{{ route('cart.update', $item->id) }}">
+                            @csrf
+                            <input type="number"
+                                name="quantity"
+                                data-id="{{ $item->id }}"
+                                data-price="{{ $item->product->price }}"
+                                value="{{ $item->quantity }}"
+                                min="1"
+                                class="form-control form-control-sm quantity-input"
+                                style="width: 60px; border: none">
+                        </form>
+
+                        </td>
+                        <td class="item-subtotal" data-id="{{$item->id}}">
+                            {{number_format($item->product->price * $item->quantity)}} đ
+                        </td>
+                        {{-- <td>{{ $item->quantity }}</td> --}}
+                        {{-- <td>{{ number_format($subtotal) }} đ</td> --}}
                     </tr>
                 @endforeach
             </tbody>
         </table>
 
         <div class="text-end">
-            <h4>Tổng tiền: <strong>{{ number_format($total) }} đ</strong></h4>
+            <h4>Tổng tiền: <strong id="cart-total">{{ number_format($total) }} đ</strong></h4>
         </div>
         <div class="d-flex justify-content-end gap-2 mt-3">
             <a href="{{ route('checkout.index') }}" class="btn btn-success btn-lg">

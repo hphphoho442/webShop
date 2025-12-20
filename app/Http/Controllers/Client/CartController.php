@@ -76,4 +76,31 @@ class CartController extends Controller
             ]);
         }
     }
+        public function update(Request $request, CartItem $item)
+    {
+        if ($item->cart->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $request->validate([
+            'quantity' => 'required|integer|min:1|max:99'
+        ]);
+
+        $item->update([
+            'quantity' => $request->quantity
+        ]);
+
+        // Tính lại subtotal & total
+        $subtotal = $item->product->price * $item->quantity;
+
+        $total = $item->cart->items->sum(function ($i) {
+            return $i->product->price * $i->quantity;
+        });
+
+        return response()->json([
+            'subtotal' => $subtotal,
+            'total'    => $total
+        ]);
+    }
+
 }

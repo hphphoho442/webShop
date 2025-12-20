@@ -28,6 +28,8 @@ group(function(){
     ->name('index');
     Route::POST('/add/{product}', 'add')
     ->name('add');
+    Route::POST('/{item}/update', 'update')
+    ->name('update');
 });
 
 Route::middleware(['auth'])->
