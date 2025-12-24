@@ -29,7 +29,7 @@ class AddressController extends Controller
         ]);
 
         return redirect()
-            ->route('checkout.index')
+            ->route('checkout.home')
             ->with('success', 'Đã thêm địa chỉ giao hàng');
     }
 }

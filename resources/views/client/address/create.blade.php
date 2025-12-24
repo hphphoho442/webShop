@@ -47,7 +47,7 @@
         </div>
 
         <div class="d-flex justify-content-end gap-2 mt-3">
-            <a href="{{ route('checkout.index') }}" class="btn btn-secondary">
+            <a href="{{ route('checkout.home') }}" class="btn btn-secondary">
                 Quay lại
             </a>
             <button class="btn btn-primary">

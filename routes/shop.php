@@ -39,7 +39,7 @@ controller(CheckoutController::class)->
 prefix('checkout')->
 name('checkout.')->
 group(function(){
-    route::GET('/', 'index')->name('index');
+    route::GET('/', 'index')->name('home');
     route::POST('/order/store', 'index')->name('name');
 });
 

@@ -87,7 +87,7 @@
             <h4>Tổng tiền: <strong id="cart-total">{{ number_format($total) }} đ</strong></h4>
         </div>
         <div class="d-flex justify-content-end gap-2 mt-3">
-            <a href="{{ route('checkout.index') }}" class="btn btn-success btn-lg">
+            <a href="{{ route('checkout.home') }}" class="btn btn-success btn-lg">
                 Tiến hành thanh toán →
             </a>
         </div>
