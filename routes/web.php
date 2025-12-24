@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::GET('/', function () {
     return view('index');
-})->name('index');
+})->name('home');
 Route::middleware(['auth'])->group(function(){
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
