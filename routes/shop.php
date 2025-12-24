@@ -40,7 +40,7 @@ prefix('checkout')->
 name('checkout.')->
 group(function(){
     route::GET('/', 'index')->name('index');
-    route::POST('/order/store', 'index')->name('index');
+    route::POST('/order/store', 'index')->name('name');
 });
 
 Route::middleware(['auth'])->

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('css')
-    @vite('resources\css\home\style.css')
+    @vite('resources/css/home/style.css')
 @endsection
 @section('content')
     <div class="hero text-center">
