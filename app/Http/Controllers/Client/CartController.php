@@ -26,7 +26,6 @@ class CartController extends Controller
         DB::beginTransaction();
 
         try {
-            // 🔴 CHẮC CHẮN USER ĐÃ LOGIN
             $userId = auth()->id();
 
             if (!$userId) {
@@ -38,21 +37,18 @@ class CartController extends Controller
                 'user_id' => $userId,
             ]);
 
-            // ⚠️ BẮT BUỘC cart phải có id
             if (!$cart->id) {
                 throw new \Exception('Không tạo được cart');
             }
 
-            // 2️⃣ Kiểm tra sản phẩm đã có trong cart chưa
+            // 2️⃣ Kiểm tra item
             $item = CartItem::where('cart_id', $cart->id)
                 ->where('product_id', $product->id)
                 ->first();
 
             if ($item) {
-                // 3️⃣ Nếu đã có → tăng số lượng
                 $item->increment('quantity');
             } else {
-                // 4️⃣ Nếu chưa có → tạo mới
                 CartItem::create([
                     'cart_id'    => $cart->id,
                     'product_id' => $product->id,
@@ -62,8 +58,22 @@ class CartController extends Controller
                 ]);
             }
 
+            // 3️⃣ Tính tổng số item trong giỏ
+            $totalItems = CartItem::where('cart_id', $cart->id)
+                ->sum('quantity');
+
             DB::commit();
 
+            // ✅ NẾU LÀ AJAX → trả JSON
+            if ($request->ajax()) {
+                return response()->json([
+                    'success'      => true,
+                    'message'      => 'Đã thêm sản phẩm vào giỏ hàng',
+                    'total_items' => $totalItems,
+                ]);
+            }
+
+            // ✅ NẾU LÀ FORM THƯỜNG
             return back()->with('success', 'Đã thêm vào giỏ hàng');
 
         } catch (\Throwable $e) {
@@ -73,9 +83,10 @@ class CartController extends Controller
                 'error' => true,
                 'msg'   => $e->getMessage(),
                 'line'  => $e->getLine(),
-            ]);
+            ], 500);
         }
     }
+
         public function update(Request $request, CartItem $item)
     {
         if ($item->cart->user_id !== auth()->id()) {

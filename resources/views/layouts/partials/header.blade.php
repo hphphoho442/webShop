@@ -28,12 +28,6 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('cart') ? 'active' : '' }}" href="/cart">
-                        Giỏ hàng
-                    </a>
-                </li>
-
-                <li class="nav-item">
                     <a class="nav-link {{ request()->is('order') ? 'active' : '' }}" href="/order">
                         Đơn hàng
                     </a>
@@ -47,6 +41,17 @@
                                 Xin chào: {{ Auth::user()->name }}
                             </a>
                         </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('cart') ? 'active' : '' }}" href="/cart">
+                                <i class="bi bi-cart"></i>
+                                <span id="cart-count" class="badge bg-danger">
+                                    {{ $cartItemCount ?? 0 }}
+                                </span>
+
+                            </a>
+                        </li>
+
                         @if(Auth::user()->role === "admin")
                             <li class="nav-item">
                                 <a href="{{route('admin.index')}}" class="btn text-white bg-transparent {{ request()->is('login') ? 'active' : '' }}"> 
@@ -66,14 +71,7 @@
                     @endif
 
                 </li>
-                @auth
-                    <li class="nav-item ">
-                        <form action="{{route('logout')}}" method="POST" id="logout">
-                            @csrf
-                            <button class="btn text-white bg-transparent">Đăng xuất</button>
-                        </form>
-                    </li>
-                @endauth
+  
                         
             </ul>
         </div>
