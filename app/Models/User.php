@@ -47,6 +47,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function addresses()
+{
+    return $this->hasMany(Address::class);
+}
+
     public function productLikes(){
         return $this->hasMany(ProductLike::class);
     }

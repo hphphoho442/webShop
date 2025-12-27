@@ -34,22 +34,41 @@
                 </li>
 
                 {{-- Nếu bạn có trang admin, thêm ở đây --}}
-                <li class="nav-item">
                     @if(Auth::check())
-                        <li class="nav-item">
-                            <a href="/profile" class="btn text-white bg-transparent {{ request()->is('login') ? 'active' : '' }}">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white"
+                            href="#"
+                            id="userDropdown"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
                                 Xin chào: {{ Auth::user()->name }}
                             </a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->is('cart') ? 'active' : '' }}" href="/cart">
-                                <i class="bi bi-cart"></i>
-                                <span id="cart-count" class="badge bg-danger">
-                                    {{ $cartItemCount ?? 0 }}
-                                </span>
 
-                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="/profile">
+                                        <i class="bi bi-person"></i> Thông tin cá nhân
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" href="/address">
+                                        <i class="bi bi-geo-alt"></i> Địa chỉ nhận hàng
+                                    </a>
+                                </li>
+
+                                <li><hr class="dropdown-divider"></li>
+
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button class="dropdown-item text-danger" type="submit">
+                                            <i class="bi bi-box-arrow-right"></i> Đăng xuất
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
                         </li>
 
                         @if(Auth::user()->role === "admin")
@@ -69,12 +88,24 @@
                             </a>
                         </li>
                     @endif
-
                 </li>
-  
-                        
             </ul>
         </div>
-
     </div>
 </nav>
+<div class="nav-wrapper position-relative">
+    {{-- CART --}}
+    @if(Auth::check())
+        <a href="/cart" class="cart-under-nav">
+            <i class="bi bi-cart"></i>
+
+            <span id="cart-count" class="cart-badge">
+                {{ $cartItemCount ?? 0 }}
+            </span>
+        </a>
+    @endif
+</div>
+
+
+
+

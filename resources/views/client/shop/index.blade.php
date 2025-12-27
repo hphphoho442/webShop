@@ -49,9 +49,27 @@
                 </button>
             </form>
 
+            {{-- CATEGORY MOBILE --}}
+            <div class="d-md-none mb-3">
+                <div class="category-scroll">
+
+                    <a href="{{ route('shop.index') }}"
+                    class="category-pill {{ request('category') ? '' : 'active' }}">
+                        Tất cả
+                    </a>
+
+                    @foreach($categories as $cat)
+                        <a href="{{ route('shop.index', ['category' => $cat->id]) }}"
+                        class="category-pill {{ request('category') == $cat->id ? 'active' : '' }}">
+                            {{ $cat->name }}
+                        </a>
+                    @endforeach
+
+                </div>
+            </div>
 
             {{-- CATEGORY --}}
-            <div class="card">
+            <div class="card d-none d-md-block">
                 <div class="card-header fw-bold">
                     Danh mục
                 </div>
@@ -92,8 +110,8 @@
         </div>
 
         {{-- PRODUCTS --}}
-<div class="col-md-9">
-    <div class="row g-4">
+        <div class="col-md-9">
+            <div class="row g-2">
 
         @forelse($products as $product)
             @php
@@ -101,7 +119,7 @@
                          ?? $product->images->first();
             @endphp
 
-            <div class="col-md-4 col-sm-6">
+            <div class="col-6 col-md-4 col-lg-3">
                 <a href="{{ route('shop.show', $product->id) }}"
                 {{-- <a href="#" --}}
                    class="text-decoration-none text-dark">

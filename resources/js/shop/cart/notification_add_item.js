@@ -1,42 +1,52 @@
-document.querySelectorAll('.add-to-cart').forEach(btn => {
-    btn.addEventListener('click', function () {
-        let productId = this.dataset.productId;
+document.addEventListener('DOMContentLoaded', () => {
 
-        fetch("{{ route('cart.add') }}", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: JSON.stringify({
-                product_id: productId,
-                quantity: 1
+    function showTopNotification(message, duration = 1500) {
+        const box = document.getElementById('top-notification');
+        if (!box) return;
+
+        box.innerHTML = `<div class="top-notify">${message}</div>`;
+        box.classList.add('show');
+
+        setTimeout(() => {
+            box.classList.remove('show');
+        }, duration);
+    }
+
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // 🔑 TÌM INPUT quantity TRONG CÙNG FORM
+            const form = this.closest('form');
+            const qtyInput = form.querySelector('input[name="quantity"]');
+            const quantity = qtyInput ? parseInt(qtyInput.value) : 1;
+
+            const url = this.dataset.url;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    quantity: quantity
+                })
             })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                // cập nhật số item
-                document.getElementById('cart-count').innerText = data.total_items;
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    // update badge
+                    const cartCount = document.getElementById('cart-count');
+                    if (cartCount) {
+                        cartCount.innerText = data.total_items;
+                    }
 
-                // toast thông báo
-                showToast(data.message);
-            }
+                    showTopNotification(data.message);
+                }
+            })
+            .catch(err => console.error(err));
         });
     });
 });
-
-function showToast(message) {
-    let toast = document.createElement('div');
-    toast.className = 'toast align-items-center text-bg-success show position-fixed bottom-0 end-0 m-3';
-    toast.innerHTML = `
-        <div class="d-flex">
-            <div class="toast-body">${message}</div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto"></button>
-        </div>
-    `;
-
-    document.body.appendChild(toast);
-
-    setTimeout(() => toast.remove(), 3000);
-}

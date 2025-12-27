@@ -1,0 +1,83 @@
+#top-notification {
+    position: fixed;
+    top: -80px;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    transition: top 0.8s ease;
+    display: flex;
+    justify-content: center;
+}
+
+#top-notification.show {
+    top: 50px;
+}
+
+.top-notify {
+    background: #198754c8; /* xanh success */
+    color: #fff;
+    padding: 14px 30px;
+    border-radius: 12px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+.cart-circle {
+    width: 42px;
+    height: 42px;
+    border: 2px solid #dee2e6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all .2s ease;
+}
+
+.cart-under-nav {
+    position: absolute;
+    top: 100%;          /* NGAY DƯỚI NAVBAR */
+    right: 16px;
+
+    margin-top: 8px;
+
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+
+    background: #fff;
+    border: 2px solid #dee2e6;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #000;
+    text-decoration: none;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,.15);
+    z-index: 1000;
+}
+
+.cart-under-nav i {
+    font-size: 20px;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+
+    min-width: 18px;
+    height: 18px;
+
+    border-radius: 50%;
+    background: #dc3545;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

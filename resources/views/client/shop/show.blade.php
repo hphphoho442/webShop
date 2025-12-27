@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 <div class="container my-5">
-
+    <a href="{{ route('shop.index') }}" class="btn btn-secondary"> <- quay lại trang mua sắm</a>
     <div class="row">
 
         {{-- IMAGE --}}
@@ -50,8 +50,9 @@
                     </div>
 
                     <div class="col">
-                        <button class="btn btn-primary px-4"
-                        type="submit">
+                        <button class="btn btn-primary px-4 add-to-cart"
+                        type="submit"
+                        data-url="{{ route('cart.add', $product->id) }}">
                             🛒 Thêm vào giỏ hàng
                         </button>
                     </div>

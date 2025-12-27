@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AddressController;
+use App\Http\Controllers\Client\AddressController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\ShopController;
 use App\Http\Controllers\Client\OrderController;
@@ -48,8 +48,10 @@ controller(AddressController::class)->
 prefix('address')->
 name('address.')->
 group(function(){
-    Route::GET('/', 'create')->name('create');
-    Route::POST('/store', 'store')->name('store');
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
+    Route::delete('/{id}', 'destroy')->name('delete');
+    Route::post('/{id}/default', 'setDefault')->name('default');
 });
 
 Route::middleware(['auth'])->
@@ -61,4 +63,8 @@ group(function(){
     Route::GET('/show/{order}', 'show')->name('show');
     Route::POST('/store', 'store')->name('store');
     Route::POST('/cancel/{order}', 'cancel')->name('cancel');
+});
+
+Route::middleware('auth')->group(function () {
+   
 });
