@@ -10,7 +10,10 @@ export default defineConfig({
                     'resources/js/shop/cart/change_quantity_item.js',
                     'resources/css/admin/a.css',
                     'resources/css/home/style.css',
-                    'resources/css/shop/style.css'
+                    'resources/css/shop/style.css',
+                    'resources/js/shop/cart/notification_add_item.js',
+                    'resources/css/shop/notification_add_to_cart.css',
+                    'resources/css/style.css'
             ],
             refresh: true,
         }),

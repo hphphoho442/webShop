@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100">
+    <div class="container-fluid px-3">
 
         {{-- Logo --}}
         <a class="navbar-brand fw-bold" href="/">
@@ -7,7 +7,9 @@
         </a>
 
         {{-- Nút toggle trên mobile --}}
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMain">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -69,7 +71,6 @@
                                     </form>
                                 </li>
                             </ul>
-                        </li>
 
                         @if(Auth::user()->role === "admin")
                             <li class="nav-item">
@@ -80,10 +81,10 @@
                         @endif
                     @else
                         <li class="nav-item">
-                            <a id="beeze-login-btn" class="btn text-white bg-transparent {{ request()->is('login') ? 'active' : '' }}" href="{{route('login')}}">
+                            <a id="beeze-login-btn" class="btn btn-primary border-0 text-white bg-transparent {{ request()->is('login') ? 'active' : '' }}" href="{{route('login')}}">
                                 Đăng nhập
                             </a>
-                            <a id="beeze-register-btn" class="btn text-white bg-transparent {{ request()->is('login') ? 'active' : '' }}" href="{{route('register')}}">
+                            <a id="beeze-register-btn" class="btn btn-primary border-0 text-white bg-transparent {{ request()->is('login') ? 'active' : '' }}" href="{{route('register')}}">
                                 Đăng ký
                             </a>
                         </li>
@@ -96,14 +97,15 @@
 <div class="nav-wrapper position-relative">
     {{-- CART --}}
     @if(Auth::check())
-        <a href="/cart" class="cart-under-nav">
-            <i class="bi bi-cart"></i>
+    <a href="/cart" class="floating-cart-fixed">
+        <i class="bi bi-cart"></i>
 
-            <span id="cart-count" class="cart-badge">
-                {{ $cartItemCount ?? 0 }}
-            </span>
-        </a>
+        <span id="cart-count" class="cart-badge">
+            {{ $cartItemCount ?? 0 }}
+        </span>
+    </a>
     @endif
+
 </div>
 
 

@@ -1,0 +1,78 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.footer {
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    font-size: 14px;
+}
+
+.footer h6 {
+    text-transform: uppercase;
+}
+
+.footer-link {
+    color: #333;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+    color: #0d6efd;
+}
+
+.footer-bottom {
+    background: #e9ecef;
+    font-size: 13px;
+}
+
+.floating-cart-fixed {
+    position: fixed;
+    right: 16px;
+    bottom: 80px;          /* dễ bấm trên mobile */
+    /* nếu muốn góc trên: top: 80px; */
+
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+
+    background: #fff;
+    border: 2px solid #dee2e6;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #000;
+    text-decoration: none;
+
+    box-shadow: 0 6px 16px rgba(0,0,0,.2);
+    z-index: 9999;        /* LUÔN NỔI TRÊN */
+}
+
+.floating-cart-fixed i {
+    font-size: 22px;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+
+    min-width: 20px;
+    height: 20px;
+    border-radius: 50%;
+
+    background: #dc3545;
+    color: #fff;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

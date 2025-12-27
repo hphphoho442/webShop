@@ -42,7 +42,7 @@
         @if($addresses->isEmpty())
             <div class="alert alert-warning">
                 Bạn chưa có địa chỉ giao hàng.
-                <a href="{{ route('address.create') }}">Thêm địa chỉ mới</a>
+                <a href="{{ route('address.index') }}">Thêm địa chỉ mới</a>
             </div>
         @else
             @foreach($addresses as $address)
