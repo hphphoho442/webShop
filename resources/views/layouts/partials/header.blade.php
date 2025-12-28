@@ -2,8 +2,8 @@
     <div class="container-fluid px-3">
 
         {{-- Logo --}}
-        <a class="navbar-brand fw-bold" href="/">
-            ShopWeb
+        <a class="navbar-brand fw-bold" href="{{route('shop.index')}}">
+            ShipDem
         </a>
 
         {{-- Nút toggle trên mobile --}}
@@ -16,12 +16,12 @@
         {{-- Menu --}}
         <div class="collapse navbar-collapse" id="navbarMain">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-
+{{-- 
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" aria-current="page" href="/">
                         Trang chủ
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('shop*') ? 'active' : '' }}" href="{{route('shop.index')}}">
@@ -74,7 +74,7 @@
 
                         @if(Auth::user()->role === "admin")
                             <li class="nav-item">
-                                <a href="{{route('admin.index')}}" class="btn text-white bg-transparent {{ request()->is('login') ? 'active' : '' }}"> 
+                                <a href="{{route('admin.dashboard')}}" class="btn text-white bg-transparent {{ request()->is('login') ? 'active' : '' }}"> 
                                     Quản lý
                                 </a>
                             </li>
