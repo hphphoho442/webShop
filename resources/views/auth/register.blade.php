@@ -11,8 +11,7 @@
                     <h4 class="text-center fw-bold mb-4">
                         Đăng ký tài khoản
                     </h4>
-
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('registerPOST') }}">
                         @csrf
 
                         {{-- NAME --}}
