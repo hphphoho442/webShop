@@ -194,5 +194,18 @@ class ProductController extends Controller
 
         return view('admin.product.showDetail', compact('product'));
     }
+    public function ToggleActive(Product $product)
+    {
+    $product->update([
+        'is_active' => $product->is_active == 1 ? 0 : 1
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'is_active' => $product->is_active
+    ]);
+    }
+
+
 
 }

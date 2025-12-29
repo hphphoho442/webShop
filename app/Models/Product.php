@@ -20,7 +20,7 @@ class Product extends Model
         'price'         => 'decimal:2',
         'tax_rate'      => 'decimal:2',
         'stock_quantity'=> 'int',
-        'is_active'     => 'boolean',
+        'is_active'     => 'integer',
     ];
 
     public function category(){

@@ -115,7 +115,16 @@
             <div class="p-3 border rounded" style="background:#fafafa;">
                 {!! $product->description ?? '<span class="text-muted">Không có mô tả</span>' !!}
             </div>
-
+            <div>
+                <a class="btn btn-sm btn-primary" 
+                href="{{route('admin.product.Update', 
+                    $product->id)}}">Sửa</a>
+                <a class="btn btn-sm btn-danger"
+                    href="{{route('admin.product.Delete',
+                    $product->id)}}">
+                    Xóa
+                </a>
+            </div>
         </div>
     </div>
 </div>

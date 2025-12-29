@@ -4,10 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashBoard;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\admin\AccountController;
-use App\Http\Controllers\admin\ProductController;
-use App\Http\Controllers\admin\SupplierController;
-use App\Http\Controllers\admin\CategoriesController;
+use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SupplierController;
+use App\Http\Controllers\Admin\CategoriesController;
 
 Route::middleware(['auth', 'role:admin'])->
     controller(AdminController::class)->
@@ -52,6 +52,7 @@ Route::middleware(['auth', 'role:admin'])->
             Route::PUT('/UpdatePUT/{id}', 'updatePUT')->name('UpdatePUT');
             Route::GET('/Delete/{id}', 'Delete')->name('Delete');
             Route::GET('/{id}/LoadImage', 'LoadImage')->name('LoadImage');
+            Route::PATCH('/{product}/toggle-active', 'ToggleActive')->name('ToggleActive');
 
         });
         Route::prefix('supplier')->
