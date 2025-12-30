@@ -2,6 +2,7 @@
 @section('js')
      @vite('resources/js/admin/seachSupplier.js')
      @vite('resources/js/admin/seachCategory.js')
+     @vite('resources/js/admin/Product/input_slug.js')
 @endsection
 @section('css')
      @vite('resources/css/admin/a.css')

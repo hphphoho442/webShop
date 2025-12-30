@@ -25,4 +25,10 @@ class CreateRequest extends FormRequest
             'description'   => 'nullable|string',
         ];
     }
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'slug' => $this->slug ?: \Illuminate\Support\Str::slug($this->name),
+        ]);
+    }
 }

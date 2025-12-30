@@ -4,14 +4,15 @@ namespace App\Http\Controllers\admin;
 
 use App\Models\Product;
 use App\Models\Supplier;
+use Illuminate\Support\Str;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use PHPUnit\Event\Code\Throwable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\product\CreateRequest;
 use App\Http\Requests\admin\product\UpdateRequired;
-use PHPUnit\Event\Code\Throwable;
 
 class ProductController extends Controller
 {
@@ -205,7 +206,4 @@ class ProductController extends Controller
         'is_active' => $product->is_active
     ]);
     }
-
-
-
 }
