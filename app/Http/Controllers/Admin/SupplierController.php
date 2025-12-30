@@ -5,8 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\admin\supplier\createRequest;
-use App\Http\Requests\admin\supplier\updateRequest;
+use App\Http\Requests\admin\supplier\CreateRequest;
+use App\Http\Requests\admin\supplier\UpdateRequest;
 
 class SupplierController extends Controller
 {
