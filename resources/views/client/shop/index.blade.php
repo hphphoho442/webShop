@@ -43,7 +43,24 @@
 
                 <button class="btn btn-sm btn-primary w-100 mt-2">Lọc</button>
             </form>
+            {{-- CATEGORY MOBILE --}}
+            <div class="d-md-none mb-3">
+                <div class="category-scroll">
 
+                    <a href="{{ route('shop.index') }}"
+                    class="category-pill {{ request('category') ? '' : 'active' }}">
+                        Tất cả
+                    </a>
+
+                    @foreach($categories as $cat)
+                        <a href="{{ route('shop.index', ['category' => $cat->id]) }}"
+                        class="category-pill {{ request('category') == $cat->id ? 'active' : '' }}">
+                            {{ $cat->name }}
+                        </a>
+                    @endforeach
+
+                </div>
+            </div>
             {{-- CATEGORY --}}
             <div class="card d-none d-md-block">
                 <div class="card-header fw-bold">Danh mục</div>

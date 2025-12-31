@@ -10,6 +10,8 @@ export default defineConfig({
                     'resources/js/shop/cart/change_quantity_item.js',
                     'resources/js/shop/cart/notification_add_item.js',
                     'resources/js/shop/shop/protect_button.js',
+                    'resources/js/admin/Product/toggle_Active.js',
+                    'resources/js/admin/Product/input_slug.js',
                     'resources/css/admin/a.css',
                     'resources/css/home/style.css',
                     'resources/css/shop/style.css',
