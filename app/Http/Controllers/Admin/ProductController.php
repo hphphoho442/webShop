@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\Supplier;
 use Illuminate\Support\Str;
 use App\Models\ProductImage;
@@ -16,10 +17,58 @@ use App\Http\Requests\admin\product\UpdateRequired;
 
 class ProductController extends Controller
 {
-    public function index(){
-        $data = Product::paginate(20);
-        return view('admin.product.index',
-                    compact('data'));
+    public function index(Request $request)
+    {
+        $query = Product::query();
+
+        // 🔍 Tên hoặc barcode
+        if ($request->filled('keyword')) {
+            $keyword = $request->keyword;
+
+            $query->where(function ($q) use ($keyword) {
+                $q->where('name', 'like', "%{$keyword}%")
+                ->orWhere('barcode', 'like', "%{$keyword}%");
+            });
+        }
+
+        // ✅ Trạng thái
+        if ($request->filled('is_active')) {
+            $query->where('is_active', $request->is_active);
+        }
+
+        // 🏭 Supplier
+        if ($request->filled('supplier_id')) {
+            $query->where('supplier_id', $request->supplier_id);
+        }
+
+        // 📂 Category
+        if ($request->filled('category_id')) {
+
+            $category = Category::with('children')
+                ->find($request->category_id);
+
+            if ($category) {
+                // Lấy toàn bộ ID category cha + con
+                $categoryIds = $category->getAllChildrenIds();
+
+                $query->whereIn('category_id', $categoryIds);
+            }
+        }
+
+        $data = $query
+            ->orderByDesc('id')
+            ->paginate(50)
+            ->withQueryString();
+
+        // Lấy danh sách để đổ select
+        $suppliers = Supplier::orderBy('name')->get();
+        $categories = Category::where('is_active', 1)->orderBy('name')->get();
+
+        return view('admin.product.index', compact(
+            'data',
+            'suppliers',
+            'categories'
+        ));
     }
     public function Create(){
         return view('admin.product.create');

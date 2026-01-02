@@ -45,7 +45,7 @@ class ShopController extends Controller
             $query->where('price', '<=', (int)$request->price_max);
         }
 
-        $products = $query->where('is_active', 1)->paginate(12)->withQueryString();
+        $products = $query->where('is_active', 1)->paginate(100)->withQueryString();
 
         $categories = Category::whereNull('parent_id')
             ->with('children')

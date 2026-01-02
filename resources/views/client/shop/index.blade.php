@@ -44,52 +44,121 @@
                 <button class="btn btn-sm btn-primary w-100 mt-2">Lọc</button>
             </form>
             {{-- CATEGORY MOBILE --}}
-            <div class="d-md-none mb-3">
-                <div class="category-scroll">
+            @php
+                $currentCategory = $categories
+                    ->pluck('children')
+                    ->flatten()
+                    ->merge($categories)
+                    ->firstWhere('id', request('category'));
 
-                    <a href="{{ route('shop.index') }}"
-                    class="category-pill {{ request('category') ? '' : 'active' }}">
-                        Tất cả
-                    </a>
+                $activeParent = $currentCategory?->parent_id
+                    ? $categories->firstWhere('id', $currentCategory->parent_id)
+                    : $currentCategory;
+            @endphp
 
-                    @foreach($categories as $cat)
-                        <a href="{{ route('shop.index', ['category' => $cat->id]) }}"
-                        class="category-pill {{ request('category') == $cat->id ? 'active' : '' }}">
-                            {{ $cat->name }}
+
+            <div class="d-md-none mb-2">
+
+                {{-- PARENT CATEGORY --}}
+                <div class="d-md-none mb-2">
+                    <div class="category-scroll">
+
+                        <a href="{{ route('shop.index') }}"
+                        class="category-pill {{ request('category') ? '' : 'active' }}">
+                            Tất cả
                         </a>
-                    @endforeach
 
+                        @foreach($categories as $parent)
+                        <a href="{{ route('shop.index', [
+                            'parent' => $parent->id,
+                            'category' => $parent->id
+                        ]) }}"
+                        class="category-pill {{ request('parent') == $parent->id ? 'active' : '' }}">
+                            {{ $parent->name }}
+                        </a>
+                        @endforeach
+
+                    </div>
                 </div>
+
+                @if(request('parent'))
+                @php
+                    $activeParent = $categories->firstWhere('id', request('parent'));
+                @endphp
+
+                <div class="category-scroll category-child-scroll">
+                @foreach($activeParent->children as $child)
+                    <a href="{{ route('shop.index', [
+                        'parent' => request('parent'),
+                        'category' => $child->id
+                    ]) }}"
+                    class="category-pill category-pill-child
+                    {{ request('category') == $child->id ? 'active' : '' }}">
+                        {{ $child->name }}
+                    </a>
+                @endforeach
+                </div>
+                @endif
             </div>
+
+
+
             {{-- CATEGORY --}}
+            @php
+                $currentCategory = $categories
+                    ->pluck('children')
+                    ->flatten()
+                    ->merge($categories)
+                    ->firstWhere('id', request('category'));
+
+                $activeParent = $currentCategory?->parent_id
+                    ? $categories->firstWhere('id', $currentCategory->parent_id)
+                    : $currentCategory;
+            @endphp
+
             <div class="card d-none d-md-block">
                 <div class="card-header fw-bold">Danh mục</div>
                 <div class="card-body p-2">
                     <ul class="list-unstyled mb-0">
+
+                        {{-- ALL --}}
                         <li>
                             <a href="{{ route('shop.index') }}"
-                               class="nav-link {{ request('category') ? '' : 'fw-bold' }}">
+                            class="nav-link {{ request('category') ? '' : 'fw-bold text-primary' }}">
                                 Tất cả
                             </a>
                         </li>
 
                         @foreach($categories as $parent)
+                            {{-- PARENT --}}
                             <li class="mt-2">
-                                <a href="{{ route('shop.index',['category'=>$parent->id]) }}"
-                                   class="nav-link {{ request('category')==$parent->id ? 'fw-bold text-primary':'' }}">
+                                <a href="{{ route('shop.index', [
+                                    'category' => $parent->id
+                                ]) }}"
+                                class="nav-link fw-semibold
+                                {{ optional($activeParent)->id == $parent->id ? 'text-primary' : '' }}">
                                     {{ $parent->name }}
                                 </a>
                             </li>
 
-                            @foreach($parent->children as $child)
-                                <li style="margin-left:18px">
-                                    <a href="{{ route('shop.index',['category'=>$child->id]) }}"
-                                       class="nav-link {{ request('category')==$child->id ? 'fw-bold text-primary':'text-muted' }}">
-                                        - {{ $child->name }}
-                                    </a>
-                                </li>
-                            @endforeach
+                            {{-- CHILD (CHỈ HIỆN KHI CHA ACTIVE) --}}
+                            @if(optional($activeParent)->id === $parent->id)
+                                @foreach($parent->children as $child)
+                                    <li class="ms-3">
+                                        <a href="{{ route('shop.index', [
+                                            'category' => $child->id
+                                        ]) }}"
+                                        class="nav-link small
+                                        {{ request('category') == $child->id
+                                            ? 'fw-bold text-success'
+                                            : 'text-muted' }}">
+                                            ▸ {{ $child->name }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            @endif
                         @endforeach
+
                     </ul>
                 </div>
             </div>

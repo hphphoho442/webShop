@@ -24,4 +24,15 @@ class Category extends Model
     public function children(){
         return $this->hasMany(Category::class, 'parent_id');
     }
+    
+        public function getAllChildrenIds()
+    {
+        $ids = collect([$this->id]);
+
+        foreach ($this->children as $child) {
+            $ids = $ids->merge($child->getAllChildrenIds());
+        }
+
+        return $ids;
+    }
 }

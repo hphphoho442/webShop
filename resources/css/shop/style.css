@@ -55,40 +55,58 @@
     color: #999;
 }
 
-/* category mobile */
-.category-scroll {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    white-space: nowrap;
+/* ===============================
+   CATEGORY MOBILE ONLY
+================================ */
+@media (max-width: 767.98px) {
 
-    padding-bottom: 6px;
-    -webkit-overflow-scrolling: touch;
+    .category-scroll {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 6px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .category-scroll::-webkit-scrollbar {
+        display: none;
+    }
+
+    .category-pill {
+        padding: 6px 14px;
+        border-radius: 20px;
+        border: 1px solid #dee2e6;
+        background: #fff;
+        font-size: 14px;
+        color: #333;
+        text-decoration: none;
+        flex-shrink: 0;
+        font-weight: 500;
+    }
+
+    .category-pill.active {
+        background: #0d6efd;
+        border-color: #0d6efd;
+        color: #fff;
+    }
+
+    .category-pill-child {
+        font-size: 13px;
+        padding: 5px 12px;
+        border-radius: 14px;
+        background: #f1f3f5;
+        border-color: #dee2e6;
+        color: #495057;
+    }
+
+    .category-pill-child.active {
+        background: #198754;
+        border-color: #198754;
+        color: #fff;
+    }
 }
 
-.category-scroll::-webkit-scrollbar {
-    display: none;
-}
-
-.category-pill {
-    padding: 6px 14px;
-    border-radius: 20px;
-
-    border: 1px solid #dee2e6;
-    background: #fff;
-
-    font-size: 14px;
-    color: #333;
-    text-decoration: none;
-
-    flex-shrink: 0;
-}
-
-.category-pill.active {
-    background: #0d6efd;
-    border-color: #0d6efd;
-    color: #fff;
-}
 /* ===== PRODUCT OVERLAY ACTION ===== */
 .product-card {
     position: relative;
@@ -127,3 +145,19 @@
 .product-overlay .btn {
     min-width: 130px;
 }
+
+
+/* ===== DESKTOP CATEGORY ===== */
+@media (min-width: 768px) {
+
+    .card .nav-link {
+        padding: 4px 0;
+        color: #212529;
+    }
+
+    .card .nav-link:hover {
+        color: #0d6efd;
+        text-decoration: none;
+    }
+}
+
